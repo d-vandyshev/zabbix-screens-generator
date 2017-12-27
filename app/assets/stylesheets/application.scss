@@ -15,5 +15,7 @@
 @import "froala_blocks";
 
 .login-section {
-  background-image: image-url('froala_bg1.svg')
+  background-image: image-url('froala_bg1.svg');
+  min-height: 100vh;
+  height: 100%;
 }

@@ -1,14 +1,22 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>ZabbixScreensGenerator</title>
-    <%= csrf_meta_tags %>
+<head>
+  <title>ZabbixScreensGenerator</title>
+  <%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
 
-  <body>
-    <%= yield %>
-  </body>
+<body>
+<header class="bg-dark">
+  <div class="container">
+    <nav class="navbar">
+      <h1><%= I18n.t 'app_name' %></h1>
+    </nav>
+  </div>
+</header>
+
+<%= yield %>
+</body>
 </html>

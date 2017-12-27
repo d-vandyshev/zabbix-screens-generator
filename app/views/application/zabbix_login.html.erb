@@ -4,13 +4,19 @@
       <div class="col-12 col-md-8 col-lg-7 col-xl-5 text-left">
         <div class="row">
           <div class="col">
-            <h1>Sign Up</h1>
-            <p class="text-h3">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia. </p>
+            <h2 class="text-secondary"><%= I18n.t 'step1' %></h2>
+            <h1><%= I18n.t 'login_auth_head' %></h1>
+            <p class="text-h3"><%= I18n.t 'login_auth_desc' %></p>
           </div>
         </div>
         <div class="row">
           <div class="col mt-4">
-            <input type="text" class="form-control" placeholder="Email">
+            <input type="text" class="form-control" placeholder="Zabbix DNS-name or IP-address">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col mt-4">
+            <input type="text" class="form-control" placeholder="Username">
           </div>
         </div>
         <div class="row mt-4">
@@ -20,7 +26,7 @@
         </div>
         <div class="row mt-4">
           <div class="col">
-            <button class="btn" type="button">Submit</button>
+            <button class="btn" type="button"><%= I18n.t 'submit' %></button>
           </div>
         </div>
       </div>

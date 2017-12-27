@@ -30,4 +30,8 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  app_name: "Zabbix Screens Generator"
+  login_auth_head: "Auth to Zabbix"
+  login_auth_desc: "Need for access to Zabbix API. Login must have a permissions to read hosts for create complex screens"
+  submit: "Submit"
+  step1: "Step 1 of 2"
