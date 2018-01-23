@@ -16,7 +16,11 @@
     </nav>
   </div>
 </header>
-
+<% flash.each do |message_type, message| %>
+  <div class="alert alert-<%= message_type %> text-center">
+    <h4><%= message %></h4>
+  </div>
+<% end %>
 <%= yield %>
 </body>
 </html>
