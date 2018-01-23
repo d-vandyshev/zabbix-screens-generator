@@ -14,8 +14,12 @@
 @import "bootstrap";
 @import "froala_blocks";
 
+body {
+  background: url('froala_bg1.svg') no-repeat;
+  background-size:cover;
+}
+
 .login-section {
-  background-image: image-url('froala_bg1.svg');
   min-height: 100vh;
   height: 100%;
 }
