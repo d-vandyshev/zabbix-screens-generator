@@ -1,2 +1,38 @@
-<h1>Sessions#new</h1>
-<p>Find me in app/views/sessions/new.html.erb</p>
+<section class="fdb-block login-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-md-8 col-lg-7 col-xl-5 text-left">
+        <div class="row">
+          <div class="col">
+            <h2 class="text-secondary"><%= I18n.t 'step1' %></h2>
+            <h1><%= I18n.t 'login.head' %></h1>
+            <p class="text-h3"><%= I18n.t 'login.desc' %></p>
+          </div>
+        </div>
+        <%= form_for(:session, url: '/') do |f| %>
+          <div class="row">
+            <div class="col mt-4">
+              <%= f.text_field :zabbix_host, class: 'form-control', placeholder: I18n.t('login.placeholder.server') %>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col mt-4">
+              <%= f.text_field :username, class: 'form-control', placeholder: I18n.t('login.placeholder.username') %>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col">
+              <%= f.password_field :password, class: 'form-control', placeholder: I18n.t('login.placeholder.password') %>
+            </div>
+          </div>
+          <div class="row mt-4">
+            <div class="col">
+              <%= f.submit I18n.t('login.submit'), class: 'btn' %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>
+
