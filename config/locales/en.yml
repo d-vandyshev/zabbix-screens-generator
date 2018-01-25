@@ -33,7 +33,7 @@ en:
   app_name: "Zabbix Screens Generator"
   login:
     head: "Auth to Zabbix"
-    desc: "Need for access to Zabbix API. Login must have a permissions to read hosts for create complex screens"
+    desc: "Need for access to Zabbix API. Login must have a permissions to read hosts for create screens"
     submit: "Submit"
     flash_invalid_login: 'Error! Invalid email/password combination'
     placeholder:
@@ -41,4 +41,7 @@ en:
       username: "Username"
       password: "Password"
   step1: "Step 1 of 2"
+  step2: "Step 2 of 2"
+  generator:
+    desc: Select Host group and press the button "Generate"
 
