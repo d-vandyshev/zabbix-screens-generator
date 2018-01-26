@@ -3,11 +3,15 @@ class SessionsController < ApplicationController
   end
 
   def create
-    if check_login
-      log_in params
+    set_session params
+    zabbix = ZabbixService.new({zabbix_server: session[:zabbix_server],
+                                username: session[:username],
+                                password: session[:password]})
+    if zabbix.auth_is_ok?
       redirect_to generator_url
     else
-      flash[:danger] = I18n.t 'login.flash_invalid_login'
+      flash.now[:danger] = I18n.t 'login.flash_invalid_login'
+      destroy_session
       render 'new'
     end
   end
