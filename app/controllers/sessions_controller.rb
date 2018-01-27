@@ -17,6 +17,8 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    destroy_session
+    render 'new'
   end
 
   def check_login
