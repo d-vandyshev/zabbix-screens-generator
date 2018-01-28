@@ -13,6 +13,10 @@
   <div class="container">
     <nav class="navbar">
       <h1><%= I18n.t 'app_name' %></h1>
+      <% if logged_in? %>
+        <div class="justify-content-end ml-auto"><%= session[:username] %></div>
+        <%= link_to I18n.t('logout_button'), logout_path, method: :delete, class: 'btn btn-white btn-empty ml-md-3' %>
+      <% end %>
     </nav>
   </div>
 </header>

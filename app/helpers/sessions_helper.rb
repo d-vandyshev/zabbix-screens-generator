@@ -10,4 +10,12 @@ module SessionsHelper
     session.delete(:username)
     session.delete(:password)
   end
+
+  def current_username
+    session[:username]
+  end
+
+  def logged_in?
+    !session[:username].nil?
+  end
 end
