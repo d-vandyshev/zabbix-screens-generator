@@ -18,6 +18,7 @@ class SessionsController < ApplicationController
 
   def destroy
     destroy_session
+    flash.now[:info] = I18n.t 'login.flash_success_logout'
     render 'new'
   end
 

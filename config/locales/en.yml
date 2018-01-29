@@ -35,7 +35,8 @@ en:
     head: "Auth to Zabbix"
     desc: "Need for access to Zabbix API. Login must have a permissions to read hosts for create screens"
     submit: "Submit"
-    flash_invalid_login: 'Error! Invalid email/password combination'
+    flash_invalid_login: "Error! Invalid email/password combination"
+    flash_success_logout: "Log out successful"
     placeholder:
       server: "Zabbix DNS-name or IP-address"
       username: "Username"
