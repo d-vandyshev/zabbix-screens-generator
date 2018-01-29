@@ -10,3 +10,4 @@ _Web-application_ made to automate the creation of screens in Zabbix.
 * Design: Froala blocks
 * CSS framework: bootstrap 4
 * Auth credentials: Rails session()
+* Icons: SVG evil_icons
