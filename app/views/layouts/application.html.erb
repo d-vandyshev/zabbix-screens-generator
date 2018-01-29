@@ -6,6 +6,7 @@
 
   <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <%= evil_icons_sprite %>
 </head>
 
 <body>
@@ -14,7 +15,14 @@
     <nav class="navbar">
       <h1><%= I18n.t 'app_name' %></h1>
       <% if logged_in? %>
-        <div class="justify-content-end ml-auto"><%= session[:username] %></div>
+        <div class="justify-content-end ml-auto">
+          <span class="d-inline-block align-middle">
+            <%= evil_icon 'ei-user', size: :m %>
+          </span>
+          <span class="align-middle">
+            <%= session[:username] %>
+          </span>
+        </div>
         <%= link_to I18n.t('logout_button'), logout_path, method: :delete, class: 'btn btn-white btn-empty ml-md-3' %>
       <% end %>
     </nav>
