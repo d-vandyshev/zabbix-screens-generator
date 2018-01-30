@@ -5,11 +5,10 @@
         <div class="row">
           <div class="col">
             <h2 class="text-secondary"><%= I18n.t 'step2' %></h2>
-            <h1><%= I18n.t 'login.head' %></h1>
+            <h1><%= I18n.t 'generator.head' %></h1>
             <p class="text-h3"><%= I18n.t 'generator.desc' %></p>
-            <label>First Name</label>
             <h3>Host Group:</h3>
-            <input type="text" class="form-control">
+            <%= select_tag(:city_id, options_for_select(@hostgroups_array), class: 'custom-select') %>
           </div>
         </div>
       </div>

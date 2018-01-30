@@ -6,17 +6,26 @@ class ZabbixService
   end
 
   def auth_is_ok?
+    connect
+    true
+  rescue
+    false
+  end
+
+  def hostgroups
+    zabbix = connect
+    zabbix.hostgroups.all
+  end
+
+  private
+  attr_reader :zabbix_server, :username, :password
+
+  def connect
     ZabbixApi.connect(
         url: "http://#{@zabbix_server}/api_jsonrpc.php",
         user: @username,
         password: @password,
         timeout: 5
-        )
-    true
-  rescue => e
-    false
+    )
   end
-
-  private
-  attr_reader :zabbix_server, :username, :password
 end
