@@ -2,7 +2,7 @@
 _Web-application_ made to automate the creation of screens in Zabbix.
 
 ```diff
-- Under Development! Not Ready for anything
+- Under Development! It is not ready for anything
 ```
 
 ## Technology stack
@@ -11,3 +11,4 @@ _Web-application_ made to automate the creation of screens in Zabbix.
 * CSS framework: bootstrap 4
 * Auth credentials: Rails session()
 * Icons: SVG evil_icons
+* JS Framework: Stimulus
