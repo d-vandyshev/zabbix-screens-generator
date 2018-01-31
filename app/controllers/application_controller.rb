@@ -10,6 +10,6 @@ class ApplicationController < ActionController::Base
     zabbix = ZabbixService.new({zabbix_server: session[:zabbix_server],
                                 username: session[:username],
                                 password: session[:password]})
-    @hostgroups_array = zabbix.hostgroups.sort.to_a
+    @hostgroups_array = zabbix.hostgroups
   end
 end

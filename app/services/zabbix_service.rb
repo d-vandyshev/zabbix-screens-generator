@@ -14,7 +14,15 @@ class ZabbixService
 
   def hostgroups
     zabbix = connect
-    zabbix.hostgroups.all
+    zabbix.hostgroups.all.sort.to_a
+  end
+
+  def hosts_by_hostgroup_id(id)
+    zabbix = connect
+    zabbix.query(
+        method: 'host.get',
+        params: {groupids: id}
+    )
   end
 
   private
