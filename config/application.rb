@@ -15,6 +15,6 @@ module ZabbixScreensGenerator
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
-    config.session_store :cache_store
+    config.cache_store = :memory_store, { expires_in: 12.hours }
   end
 end
