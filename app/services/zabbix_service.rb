@@ -1,6 +1,6 @@
 class ZabbixService
   def initialize(params)
-    @zabbix_server = params[:zabbix_server]
+    @server = params[:server]
     @username = params[:username]
     @password = params[:password]
   end
@@ -26,11 +26,11 @@ class ZabbixService
   end
 
   private
-  attr_reader :zabbix_server, :username, :password
+  attr_reader :server, :username, :password
 
   def connect
     ZabbixApi.connect(
-        url: "http://#{@zabbix_server}/api_jsonrpc.php",
+        url: "http://#{@server}/api_jsonrpc.php",
         user: @username,
         password: @password,
         timeout: 5
