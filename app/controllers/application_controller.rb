@@ -4,12 +4,11 @@ class ApplicationController < ActionController::Base
   include SessionsHelper
 
   def generator
-    unless session[:zabbix_server] && session[:username] && session[:password]
-      redirect_to root_path
+    unless logged_in?
+      redirect_to(root_path) and return
     end
-    zabbix = ZabbixService.new({zabbix_server: session[:zabbix_server],
-                                username: session[:username],
-                                password: session[:password]})
+
+    zabbix = Rails.cache.read(session[:uuid])
     @hostgroups_array = zabbix.hostgroups
   end
 end

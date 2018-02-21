@@ -6,11 +6,10 @@ class SessionsController < ApplicationController
   end
 
   def create
-    set_session params
-    zabbix = ZabbixService.new({zabbix_server: session[:zabbix_server],
-                                username: session[:username],
-                                password: session[:password]})
+    creds = zabbix_creds_params
+    zabbix = ZabbixService.new(creds)
     if zabbix.auth_is_ok?
+      set_session(creds[:username], zabbix)
       redirect_to generator_url
     else
       flash.now[:danger] = I18n.t 'login.flash_invalid_login'
@@ -25,7 +24,9 @@ class SessionsController < ApplicationController
     render 'new'
   end
 
-  def check_login
-    true
+  private
+
+  def zabbix_creds_params
+    params.require(:session).permit(:server, :username, :password)
   end
 end

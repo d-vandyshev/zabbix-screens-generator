@@ -1,21 +1,18 @@
 module SessionsHelper
-  def set_session(params)
-    session[:zabbix_server] = params[:session][:zabbix_server]
-    session[:username] = params[:session][:username]
-    session[:password] = params[:session][:password]
+  require 'securerandom'
+
+  def set_session(username, zabbix)
+    session[:uuid] = SecureRandom.uuid
+    session[:username] = username
+    Rails.cache.write(session[:uuid], zabbix)
   end
 
   def destroy_session
-    session.delete(:zabbix_server)
-    session.delete(:username)
-    session.delete(:password)
-  end
-
-  def current_username
-    session[:username]
+    Rails.cache.delete(session[:uuid])
+    session[:uuid] = nil
   end
 
   def logged_in?
-    !session[:username].nil?
+    !session[:uuid].nil? and !Rails.cache.read(session[:uuid]).nil?
   end
 end
