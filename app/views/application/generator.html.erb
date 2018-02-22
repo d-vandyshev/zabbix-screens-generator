@@ -8,7 +8,9 @@
             <h1><%= I18n.t 'generator.head' %></h1>
             <p class="text-h3"><%= I18n.t 'generator.desc' %></p>
             <h3>Host Group:</h3>
-            <%= select_tag(:city_id, options_for_select(@hostgroups_array), class: 'custom-select') %>
+            <%= select_tag(:city_id, options_for_select(@hostgroups_array),
+                           class: 'custom-select',
+                           'data-controller' => 'hello') %>
           </div>
         </div>
       </div>

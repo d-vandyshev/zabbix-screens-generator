@@ -9,6 +9,7 @@ end
 gem 'bootstrap', '4.0.0'
 gem 'zabbixapi', '3.2.1'
 gem 'evil_icons', '1.9.0'
+gem 'webpacker', '3.2.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '5.1.4'
