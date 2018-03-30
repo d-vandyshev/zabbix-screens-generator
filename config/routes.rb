@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   post    '/', to: 'sessions#create'
   delete  'logout', to: 'sessions#destroy'
   get     'generator', to: 'application#generator'
+  post    'generator', to: 'application#generator_post'
 end
