@@ -1,10 +1,11 @@
 import { Controller } from 'stimulus'
 
 export default class extends Controller {
-    static targets = ["hostgroup_id"]
+    static targets = ["hostgroup_id", "submit"]
 
     changeHostgroup() {
-        console.log(`Hello, ${this.hostgroup_id}!`)
+        console.log(`Hello, ${this.hostgroup_id}!`);
+        this.submitTarget.click();
     }
 
     get hostgroup_id() {
