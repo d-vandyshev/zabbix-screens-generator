@@ -16,18 +16,6 @@ class ZabbixService
     @hostgroups ||= @zabbix_instance.hostgroups.all.sort.to_a
   end
 
-  # hosts_from_api = @zabbix.query(
-  #     method: 'host.get',
-  #     params: {
-  #         'output' => 'extend',
-  #         'selectGroups' => 'extend',
-  #         'selectMacros' => 'extend',
-  #         'selectInterfaces' => 'extend',
-  #         'selectParentTemplates' => %w(templateid name),
-  #         'groupids' => [@zabbix.hostgroups.get_id(name: @common_group)]
-  #     }
-  # )
-
   def hosts_by_hostgroup_id(id)
     hosts_raw = @zabbix_instance.query(
         method: 'host.get',
@@ -40,13 +28,7 @@ class ZabbixService
     hosts_raw.each do |host|
       ip = nil
       host['interfaces'].each do |inet|
-        puts 'in interfaces. main class and val'
-        puts inet['main'].class
-        puts inet['main'].inspect
         if inet['main'] == '1'
-          puts 'main = 1'
-          puts 'ip:'
-          puts inet['ip']
           ip = inet['ip']
           break
         end
