@@ -2,24 +2,46 @@
   <div class="container">
     <div class="row">
       <div class="col-12 col-md-8 col-lg-7 col-xl-5 text-left">
-        <div class="row">
-          <div class="col" data-controller="host">
-            <h2 class="text-secondary"><%= I18n.t 'step2' %></h2>
-            <h1><%= I18n.t 'generator.head' %></h1>
-            <p class="text-h3"><%= I18n.t 'generator.desc' %></p>
-            <h3>Host Group:</h3>
-            <%= select_tag(:city_id, options_for_select(@hostgroups_array),
-                           class: 'custom-select',
-                           'data-action' => 'host#changeHostgroup',
-                           'data-target'=> 'host.hostgroup_id'
-                ) %>
-          </div>
+        <div class="row" data-controller="host">
+          <h2 class="text-secondary"><%= I18n.t 'step2' %></h2>
+          <h1><%= I18n.t 'generator.head' %></h1>
+          <p class="text-h3"><%= I18n.t 'generator.desc' %></p>
+          <h3>Host group:</h3>
+          <%= form_for(:hostgroup, url: '/generator') do |f| %>
+            <%= f.select(:id, options_for_select(@hostgroups_array), {},
+                         {:class => 'custom-select',
+                          'data-action' => 'host#changeHostgroup',
+                          'data-target' => 'host.hostgroup_id'}
+                )
+                # :onchange => "this.form.submit();"
+            %>
+            <%= f.button :submit, class: 'invisible', 'data-target' => 'host.submit' %>
+          <% end %>
         </div>
+        <% unless @hosts.nil? %>
+          <%= I18n.t 'generator.host_in_group' %>
+          <div class="row">
+            <table class="table table-bordered table-hover">
+              <thead>
+              <tr>
+                <th scope="col"><%= I18n.t 'generator.host_name' %></th>
+                <th scope="col"><%= I18n.t 'generator.host_ip' %></th>
+                <th scope="col"><%= I18n.t 'generator.host_check' %> <%= check_box_tag :pet_dog %></th>
+              </tr>
+              </thead>
+              <tbody>
+              <% @hosts.each do |host| %>
+                <tr>
+                  <td><%= host[:name] %></td>
+                  <td><%= host[:ip] %></td>
+                  <td class="text-center"><%= check_box_tag :pet_dog %></td>
+                </tr>
+              <% end %>
+              </tbody>
+            </table>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>
 </section>
-                
-
-
-

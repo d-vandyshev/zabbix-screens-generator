@@ -46,4 +46,9 @@ en:
   step2: "Step 2 of 2"
   generator:
     head: "Generate Screens"
-    desc: Select Host group and press the button "Generate"
+    desc: "Select Host group and press the button Generate"
+    host_in_group: "Host in this group"
+    host_name: "Name"
+    host_ip: "IP"
+    host_check: "Check all"
+
