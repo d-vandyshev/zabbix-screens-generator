@@ -12,3 +12,7 @@ _Web-application_ made to automate the creation of screens in Zabbix.
 * Auth credentials: Rails session()
 * Icons: SVG evil_icons
 * JS Framework: Stimulus
+
+## Notes
+* Place for Zabbix credentials: rails cache in memory
+  
