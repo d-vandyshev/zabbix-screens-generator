@@ -51,4 +51,4 @@ en:
     host_name: "Name"
     host_ip: "IP"
     host_check: "Check all"
-
+    submit_hosts: "Create Complex Screens"

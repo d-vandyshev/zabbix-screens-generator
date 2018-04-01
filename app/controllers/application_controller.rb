@@ -21,19 +21,34 @@ class ApplicationController < ActionController::Base
     zabbix = Rails.cache.read(session[:uuid])
     @hostgroups_array = zabbix.hostgroups
     @hosts = zabbix.hosts_by_hostgroup_id(hostgroup_params.fetch('id'))
-    puts @hosts.inspect
 
-    # puts hostgroup_param['id']
-    # @hosts = [
-    #     {name: 'firstname', ip: hostgroup_params},
-    #     {name: 'secondname', ip: '1.1.2.2'}
-    # ]
     render 'generator'
+  end
+
+  def screen
+    ids = host_ids_from_params
+    puts 'ids: '
+    puts ids.inspect
+
+    # TODO
+    # call Zabbix Service for create screens for this host ids
+    # And flash message for result
+
   end
 
   private
 
   def hostgroup_params
     params.require(:hostgroup).permit(:id)
+  end
+
+  def host_ids_from_params
+    ids = []
+    params.select do |k,v|
+      if k !~ /\D/ # check for only digits in string
+        ids << k
+      end
+    end
+    ids
   end
 end

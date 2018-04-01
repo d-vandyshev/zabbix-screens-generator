@@ -35,7 +35,8 @@ class ZabbixService
       end
       hosts << {
           name: host['name'],
-          ip: ip
+          ip: ip,
+          id: host['hostid']
       }
     end
     hosts

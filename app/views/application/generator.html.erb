@@ -21,24 +21,28 @@
         <% unless @hosts.nil? %>
           <%= I18n.t 'generator.host_in_group' %>
           <div class="row">
-            <table class="table table-bordered table-hover">
-              <thead>
-              <tr>
-                <th scope="col"><%= I18n.t 'generator.host_name' %></th>
-                <th scope="col"><%= I18n.t 'generator.host_ip' %></th>
-                <th scope="col"><%= I18n.t 'generator.host_check' %> <%= check_box_tag :pet_dog %></th>
-              </tr>
-              </thead>
-              <tbody>
-              <% @hosts.each do |host| %>
+            <%= form_for(:screen, url: '/screen') do |f| %>
+              <%= f.button I18n.t('generator.submit_hosts'), class: 'btn' %>
+              <table class="table table-bordered table-hover">
+                <thead>
                 <tr>
-                  <td><%= host[:name] %></td>
-                  <td><%= host[:ip] %></td>
-                  <td class="text-center"><%= check_box_tag :pet_dog %></td>
+                  <th scope="col"><%= I18n.t 'generator.host_name' %></th>
+                  <th scope="col"><%= I18n.t 'generator.host_ip' %></th>
+                  <th scope="col"><%= I18n.t 'generator.host_check' %> <%= check_box_tag :pet_dog %></th>
                 </tr>
-              <% end %>
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                <% @hosts.each do |host| %>
+                  <tr>
+                    <td><%= host[:name] %></td>
+                    <td><%= host[:ip] %></td>
+                    <td class="text-center"><%= check_box_tag(host[:id], value = host[:id]) %></td>
+                  </tr>
+                <% end %>
+                </tbody>
+              </table>
+              <%= f.button I18n.t('generator.submit_hosts'), class: 'btn' %>
+            <% end %>
           </div>
         <% end %>
       </div>
