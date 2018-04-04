@@ -26,14 +26,8 @@ class ApplicationController < ActionController::Base
   end
 
   def screen
-    ids = host_ids_from_params
-    puts 'ids: '
-    puts ids.inspect
-
-    # TODO
-    # call Zabbix Service for create screens for this host ids
-    # And flash message for result
-
+    zabbix = Rails.cache.read(session[:uuid])
+    @results = zabbix.create_screens hosts_ids_from_params
   end
 
   private
@@ -42,7 +36,7 @@ class ApplicationController < ActionController::Base
     params.require(:hostgroup).permit(:id)
   end
 
-  def host_ids_from_params
+  def hosts_ids_from_params
     ids = []
     params.select do |k,v|
       if k !~ /\D/ # check for only digits in string

@@ -1,1 +1,16 @@
-screens
+<div class="container mt-5">
+  <% @results.each do |host, result| %>
+    <% if result === true
+         # TODO Convert ro i18n this file
+    %>
+      <div class="alert alert-success" role="alert">
+        Screen for <%= host %> is created
+      </div>
+    <% else %>
+      <div class="alert alert-danger" role="alert">
+        Unable to create screen for <%= host %> (perhaps, it's already exist)
+      </div>
+    <% end %>
+  <% end %>
+</div>
+<%= link_to generator_path %>
