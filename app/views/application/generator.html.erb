@@ -10,7 +10,7 @@
           <%= form_for(:hostgroup, url: '/generator') do |f| %>
             <%= f.select(:id, options_for_select(
                 @hostgroups_array.unshift([I18n.t('generator.please_select'), 0, hidden: '']),
-                selected: 0,
+                selected: @hostgroup_id || 0,
                 disabled: 0
                 ), {}, {:class => 'custom-select',
                         'data-action' => 'host#changeHostgroup',

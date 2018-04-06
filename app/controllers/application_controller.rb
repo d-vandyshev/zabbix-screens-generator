@@ -21,6 +21,7 @@ class ApplicationController < ActionController::Base
     zabbix = Rails.cache.read(session[:uuid])
     @hostgroups_array = zabbix.hostgroups
     @hosts = zabbix.hosts_by_hostgroup_id(hostgroup_params.fetch('id'))
+    @hostgroup_id = hostgroup_params.fetch('id')
 
     render 'generator'
   end
