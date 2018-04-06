@@ -50,9 +50,10 @@ en:
     host_in_group: "Host in this group"
     host_name: "Name"
     host_ip: "IP"
-    host_check: "Check all"
+    host_check: "Select all"
     submit_hosts: "Create Complex Screens"
     please_select: "Please select group"
+    no_hosts_in_group: "Sorry, but there is no hosts in this hostgroup"
   screens:
     success: "Screen is succefully created for host"
     fail_part1: "Unable to create screen for"

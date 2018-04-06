@@ -22,7 +22,11 @@
             <%= f.button :submit, class: 'invisible', 'data-target' => 'host.submit' %>
           <% end %>
         </div>
-        <% unless @hosts.nil? %>
+        <% if defined?(@hosts) and @hosts.empty? %>
+          <div class="row alert alert-warning" role="alert">
+            <%= I18n.t('generator.no_hosts_in_group') %>
+          </div>
+        <% elsif defined?(@hosts) and !@hosts.empty? %>
           <div class="row"><%= I18n.t 'generator.host_in_group' %></div>
           <div class="row">
             <%= form_for(:screen, url: '/screen') do |f| %>
