@@ -1,8 +1,8 @@
 <section class="fdb-block login-section">
-  <div class="container">
+  <div class="container" data-controller="host">
     <div class="row">
       <div class="col-12 col-md-8 col-lg-7 col-xl-5 text-left">
-        <div class="row" data-controller="host">
+        <div class="row">
           <h2 class="text-secondary"><%= I18n.t 'step2' %></h2>
           <h1><%= I18n.t 'generator.head' %></h1>
           <p class="text-h3"><%= I18n.t 'generator.desc' %></p>
@@ -12,12 +12,10 @@
                 @hostgroups_array.unshift([I18n.t('generator.please_select'), 0, hidden: '']),
                 selected: @hostgroup_id || 0,
                 disabled: 0
-                ), {}, {:class => 'custom-select',
-                        'data-action' => 'host#changeHostgroup',
-                        'data-target' => 'host.hostgroup_id'}
+            ), {}, {:class => 'custom-select',
+                    'data-action' => 'host#changeHostgroup',
+                    'data-target' => 'host.hostgroup_id'}
                 )
-                # TODO Load previous selected item
-                # :onchange => "this.form.submit();"
             %>
             <%= f.button :submit, class: 'invisible', 'data-target' => 'host.submit' %>
           <% end %>
@@ -36,7 +34,11 @@
                 <tr>
                   <th scope="col"><%= I18n.t 'generator.host_name' %></th>
                   <th scope="col"><%= I18n.t 'generator.host_ip' %></th>
-                  <th scope="col"><%= I18n.t 'generator.host_check' %> <%= check_box_tag :pet_dog %></th>
+                  <th scope="col"><%= I18n.t 'generator.host_check' %>
+                    <%= check_box_tag(:check_all, '', false,
+                                      {'data-target' => 'host.checkall', 'data-action' => 'host#toggleAll'}
+                        )%>
+                  </th>
                 </tr>
                 </thead>
                 <tbody>
@@ -44,7 +46,9 @@
                   <tr>
                     <td><%= host[:name] %></td>
                     <td><%= host[:ip] %></td>
-                    <td class="text-center"><%= check_box_tag(host[:id], value = host[:id]) %></td>
+                    <td class="text-center">
+                      <%= check_box_tag(host[:id], value = host[:id], false, {'data-target' => 'host.check'}) %>
+                    </td>
                   </tr>
                 <% end %>
                 </tbody>
