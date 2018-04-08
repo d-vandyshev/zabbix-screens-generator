@@ -28,7 +28,10 @@
           <div class="row"><%= I18n.t 'generator.host_in_group' %></div>
           <div class="row">
             <%= form_for(:screen, url: '/screen') do |f| %>
-              <%= f.button I18n.t('generator.submit_hosts'), class: 'btn' %>
+              <%= f.button I18n.t('generator.submit_hosts'), class: 'btn', 'data-action' => 'host#submitHosts' %>
+              <div class="invisible row alert alert-danger text-center" data-target="host.message_no_host_selected">
+                <h4>No hosts is selected</h4>
+              </div>
               <table class="table table-bordered table-hover mt-3">
                 <thead>
                 <tr>
