@@ -1,7 +1,7 @@
 import {Controller} from 'stimulus'
 
 export default class extends Controller {
-    static targets = ["hostgroup_id", "submit", "check", "checkall", "message_no_host_selected"]
+    static targets = ["hostgroup_id", "submit", "check", "checkall", "message_no_host_selected", "modal"]
 
     changeHostgroup() {
         this.submitTarget.click();
@@ -13,6 +13,7 @@ export default class extends Controller {
             event.preventDefault()
             this.message_no_host_selectedTarget.classList.remove("invisible");
             console.log(`isallunchecked`)
+            this.modalTarget.click();
         }
     }
 

@@ -28,7 +28,22 @@
           <div class="row"><%= I18n.t 'generator.host_in_group' %></div>
           <div class="row">
             <%= form_for(:screen, url: '/screen') do |f| %>
-              <%= f.button I18n.t('generator.submit_hosts'), class: 'btn', 'data-action' => 'host#submitHosts' %>
+              <%= f.button(I18n.t('generator.submit_hosts'),
+                           { class: 'btn', 'data-action' => 'host#submitHosts' }
+                  )
+              %>
+              <a class="button" href="#popup1">Click Me</a>
+
+              <div id="popup1" class="overlay">
+                <div class="popup">
+                  <h2>Info box</h2>
+                  <a class="close" href="#">&times;</a>
+                  <div class="content">
+                    <p>This is done totally without JavaScript. Just HTML and CSS.</p>
+                  </div>
+                </div>
+              </div>
+
               <div class="invisible row alert alert-danger text-center" data-target="host.message_no_host_selected">
                 <h4>No hosts is selected</h4>
               </div>
