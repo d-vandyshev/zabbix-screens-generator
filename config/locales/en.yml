@@ -30,6 +30,8 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  ok: "OK"
+  warning: "Warning!"
   app_name: "Zabbix Screens Generator"
   login:
     head: "Auth to Zabbix"
@@ -54,6 +56,7 @@ en:
     submit_hosts: "Create Complex Screens"
     please_select: "Please select group"
     no_hosts_in_group: "Sorry, but there is no hosts in this hostgroup"
+    need_select_hosts: "Need to select hosts for generate screens"
   screens:
     success: "Screen is succefully created for host"
     fail_part1: "Unable to create screen for"
