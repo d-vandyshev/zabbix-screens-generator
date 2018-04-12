@@ -4,9 +4,14 @@
       <div class="col-12 col-md-8 col-lg-7 col-xl-5 text-left">
         <div class="row">
           <h2 class="text-secondary"><%= I18n.t 'step2' %></h2>
+        </div>
+        <div class="row">
           <h1><%= I18n.t 'generator.head' %></h1>
-          <p class="text-h3"><%= I18n.t 'generator.desc' %></p>
-          <h3>Host group:</h3>
+        </div>
+        <div class="row">
+          <h3><%= I18n.t 'generator.hostgroup' %></h3>
+        </div>
+        <div class="row">
           <%= form_for(:hostgroup, url: '/generator') do |f| %>
             <%= f.select(:id, options_for_select(
                 @hostgroups_array.unshift([I18n.t('generator.please_select'), 0, hidden: '']),
@@ -26,7 +31,6 @@
             <%= I18n.t('generator.no_hosts_in_group') %>
           </div>
         <% elsif defined?(@hosts) and !@hosts.empty? %>
-          <div class="row"><%= I18n.t 'generator.host_in_group' %></div>
           <div class="row">
             <%= form_for(:screen, url: '/screen') do |f| %>
               <%= f.button(I18n.t('generator.submit_hosts'),
