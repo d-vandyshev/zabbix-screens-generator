@@ -44,8 +44,9 @@ en:
       username: "Username"
       password: "Password"
   logout_button: "Log out"
-  step1: "Step 1 of 2"
-  step2: "Step 2 of 2"
+  step1: "Step 1 of 3"
+  step2: "Step 2 of 3"
+  step3: "Step 3 of 3"
   generator:
     head: "Generate Screens"
     hostgroup: "Host group:"
@@ -60,3 +61,5 @@ en:
     success: "Screen is succefully created for host"
     fail_part1: "Unable to create screen for"
     fail_part2: "(perhaps, it's already exist)"
+    result: "Result:"
+    select_another_hosts: "Select another hosts"
