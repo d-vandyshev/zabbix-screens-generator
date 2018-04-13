@@ -1,0 +1,66 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# The following keys must be escaped otherwise they will not be retrieved by
+# the default I18n backend:
+#
+# true, false, on, off, yes, no
+#
+# Instead, surround them with single quotes.
+#
+# en:
+#   'true': 'foo'
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+en:
+  ok: "OK"
+  warning: "Внимание!"
+  app_name: "Генератор комплексных экранов Zabbix"
+  login:
+    head: "Авторизация Zabbix"
+    desc: "Необходимо для доступа к Zabbix API. Задать логин с правами чтения узлов сети"
+    submit: "Отправить"
+    flash_invalid_login: "Ошибка! Неправильная комбинация логин/пароль"
+    flash_success_logout: "Успешно разлогинились!"
+    placeholder:
+      server: "Zabbix DNS-name or IP-address"
+      server: "Zabbix DNS-имя or IP-адрес"
+      username: "Логин"
+      password: "Пароль"
+  logout_button: "Выйти"
+  step1: "Шаг 1 из 3"
+  step2: "Шаг 2 из 3"
+  step3: "Шаг 3 из 3"
+  generator:
+    head: "Создание комплексных экранов"
+    hostgroup: "Группа узлов сети:"
+    host_name: "Имя"
+    host_ip: "IP"
+    host_check: "Выбрать всё"
+    submit_hosts: "Создать комплексные экраны"
+    please_select: "Выбрать группу"
+    no_hosts_in_group: "Извините, в этой группе нет узлов сети"
+    need_select_hosts: "Необходимо выбрать узлы сети для создания комплексных экранов"
+  screens:
+    success: "Комплексный экран успешно создан для узла сети"
+    fail_part1: "Не возможно создать комплексный экран для узла сети"
+    fail_part2: "(возможно, он уже существует)"
+    result: "Результат:"
+    select_another_hosts: "Выбрать другие узлы сети"
