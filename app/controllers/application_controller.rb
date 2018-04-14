@@ -1,8 +1,12 @@
 class ApplicationController < ActionController::Base
+  before_action :set_locale
   protect_from_forgery with: :exception
   include Turbolinks::Redirection
-
   include SessionsHelper
+
+  def set_locale
+    I18n.locale = extract_locale_from_accept_language_header
+  end
 
   def generator
     unless logged_in?
@@ -45,5 +49,10 @@ class ApplicationController < ActionController::Base
       end
     end
     ids
+  end
+
+  private
+  def extract_locale_from_accept_language_header
+    request.env['HTTP_ACCEPT_LANGUAGE'].scan(/^[a-z]{2}/).first
   end
 end
