@@ -11,23 +11,32 @@
 </head>
 
 <body>
-<header class="bg-dark">
-  <div class="container">
-    <nav class="navbar">
-      <h1><%= link_to t('app_name'), root_path, class: 'bg-dark logo-hover' %></h1>
-      <% if logged_in? %>
-        <div class="justify-content-end ml-auto">
+<header class="bg-dark navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar">
+  <h1><%= link_to t('app_name'), root_path, class: 'bg-dark logo-hover' %></h1>
+  <div class="justify-content-end ml-auto" data-controller="locale">
+    <%= form_for(:locale, url: '/change_locale') do |f| %>
+      <%= f.select(:locale, options_for_select(@available_locales, selected: @selected_locale, disabled: 0), {},
+                   {
+                       'data-action' => 'locale#changeLocale',
+                       'data-target' => 'locale.choosed_locale',
+                       'autocomplete' => 'off' # To prevent Firefox remembers selected item after refresh
+                   }
+          )
+      %>
+      <%= f.button :submit, class: 'd-none', 'data-target' => 'locale.submit' %>
+    <% end %>
+  </div>
+  <% if logged_in? %>
+    <div class="ml-md-3">
           <span class="d-inline-block align-middle">
             <%= evil_icon 'ei-user', size: :m %>
           </span>
-          <span class="align-middle">
+      <span class="align-middle">
             <%= session[:username] %>
           </span>
-        </div>
-        <%= link_to t('logout_button'), logout_path, method: :delete, class: 'btn btn-white btn-empty ml-md-3' %>
-      <% end %>
-    </nav>
-  </div>
+    </div>
+    <%= link_to t('logout_button'), logout_path, method: :delete, class: 'btn btn-white btn-empty ml-md-3' %>
+  <% end %>
 </header>
 <% flash.each do |message_type, message| %>
   <div class="alert alert-<%= message_type %> text-center">

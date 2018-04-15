@@ -5,7 +5,15 @@ class ApplicationController < ActionController::Base
   include SessionsHelper
 
   def set_locale
-    I18n.locale = extract_locale_from_accept_language_header
+    I18n.locale = session[:locale] || extract_locale_from_accept_language_header
+    # For select locale in header
+    @available_locales = I18n.available_locales.map { |l| [l.to_s.upcase, l] }
+    @selected_locale = I18n.locale
+  end
+
+  def change_locale
+    session[:locale] = I18n.locale = locale_param.fetch 'locale'
+    redirect_back(fallback_location: root_path)
   end
 
   def generator
@@ -52,6 +60,11 @@ class ApplicationController < ActionController::Base
   end
 
   private
+  def locale_param
+    params.require(:locale).permit(:locale)
+    # TODO Check locale for string and match with available locales
+  end
+
   def extract_locale_from_accept_language_header
     request.env['HTTP_ACCEPT_LANGUAGE'].scan(/^[a-z]{2}/).first
   end

@@ -6,4 +6,5 @@ Rails.application.routes.draw do
   get 'generator', to: 'application#generator'
   post 'generator', to: 'application#generator_post'
   post 'screen', to: 'application#screen'
+  post 'change_locale', to: 'application#change_locale'
 end
