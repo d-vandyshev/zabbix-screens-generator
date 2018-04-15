@@ -1,22 +1,22 @@
 <div class="container mt-5">
   <div class="row">
-    <h2 class="text-secondary"><%= I18n.t('step3') %></h2>
+    <h2 class="text-secondary"><%= t 'step3' %></h2>
   </div>
   <div class="row">
-    <h1><%= I18n.t('screens.result') %></h1>
+    <h1><%= t 'screens.result' %></h1>
   </div>
   <% @results.each do |host, result| %>
     <% if result === true %>
       <div class="row alert alert-success" role="alert">
-        <%= I18n.t('screens.success') %> <%= host %>
+        <%= t 'screens.success' %> <%= host %>
       </div>
     <% else %>
       <div class="row alert alert-danger" role="alert">
-        <%= I18n.t('screens.fail_part1') %> <%= host %>. <%= I18n.t('screens.fail_part2') %>
+        <%= t('screens.fail_part1') + host.to_s + t('screens.fail_part2') %>
       </div>
     <% end %>
   <% end %>
   <div class="row">
-    <%= link_to I18n.t('screens.select_another_hosts'), generator_path, {class: 'btn', role: 'button'} %>
+    <%= link_to t('screens.select_another_hosts'), generator_path, {class: 'btn', role: 'button'} %>
   </div>
 </div>

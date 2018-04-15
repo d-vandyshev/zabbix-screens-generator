@@ -3,18 +3,18 @@
     <div class="row">
       <div class="col-12 col-md-8 col-lg-7 col-xl-7 text-left">
         <div class="row">
-          <h2 class="text-secondary"><%= I18n.t 'step2' %></h2>
+          <h2 class="text-secondary"><%= t 'step2' %></h2>
         </div>
         <div class="row">
-          <h1><%= I18n.t 'generator.head' %></h1>
+          <h1><%= t 'generator.head' %></h1>
         </div>
         <div class="row">
-          <h3><%= I18n.t 'generator.hostgroup' %></h3>
+          <h3><%= t 'generator.hostgroup' %></h3>
         </div>
         <div class="row">
           <%= form_for(:hostgroup, url: '/generator') do |f| %>
             <%= f.select(:id, options_for_select(
-                @hostgroups_array.unshift([I18n.t('generator.please_select'), 0, hidden: '']),
+                @hostgroups_array.unshift([t('generator.please_select'), 0, hidden: '']),
                 selected: @hostgroup_id || 0,
                 disabled: 0
             ), {}, {:class => 'custom-select',
@@ -28,12 +28,12 @@
         </div>
         <% if defined?(@hosts) and @hosts.empty? %>
           <div class="row alert alert-warning" role="alert">
-            <%= I18n.t('generator.no_hosts_in_group') %>
+            <%= t 'generator.no_hosts_in_group' %>
           </div>
         <% elsif defined?(@hosts) and !@hosts.empty? %>
           <div class="row">
             <%= form_for(:screen, url: '/screen') do |f| %>
-              <%= f.button(I18n.t('generator.submit_hosts'),
+              <%= f.button(t('generator.submit_hosts'),
                            {class: 'btn', 'data-action' => 'host#submitHosts'}
                   )
               %>
@@ -43,10 +43,10 @@
               <a id="my_popup" class="popup" href="#" data-turbolinks="false"></a>
               <div class="popup card">
                 <h2 class="card-header">
-                  <%= I18n.t('warning') %>
+                  <%= t 'warning' %>
                 </h2>
                 <div class="card-body text-center">
-                  <p class="card-title"><%= I18n.t('generator.need_select_hosts') %></p>
+                  <p class="card-title"><%= t 'generator.need_select_hosts' %></p>
                   <div class="text-right">
                     <a class="btn btn-secondary" href="#" data-turbolinks="false"><%= I18n.t('ok') %></a>
                   </div>
@@ -55,9 +55,9 @@
               <table class="table table-bordered table-hover mt-3">
                 <thead>
                 <tr>
-                  <th scope="col"><%= I18n.t 'generator.host_name' %></th>
-                  <th scope="col"><%= I18n.t 'generator.host_ip' %></th>
-                  <th scope="col"><%= I18n.t 'generator.host_check' %>
+                  <th scope="col"><%= t 'generator.host_name' %></th>
+                  <th scope="col"><%= t 'generator.host_ip' %></th>
+                  <th scope="col"><%= t 'generator.host_check' %>
                     <%= check_box_tag(:check_all, '', false,
                                       {'data-target' => 'host.checkall', 'data-action' => 'host#toggleAll'}
                         ) %>
