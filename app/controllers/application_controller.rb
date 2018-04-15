@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   end
 
   def change_locale
-    session[:locale] = I18n.locale = locale_param.fetch 'locale'
+    session[:locale] = I18n.locale = locale_param
     redirect_back(fallback_location: root_path)
   end
 
@@ -61,8 +61,9 @@ class ApplicationController < ActionController::Base
 
   private
   def locale_param
-    params.require(:locale).permit(:locale)
-    # TODO Check locale for string and match with available locales
+    locale = params.require(:locale).permit(:locale).fetch('locale').to_sym
+    locale = :en unless I18n.available_locales.include? locale
+    locale
   end
 
   def extract_locale_from_accept_language_header
