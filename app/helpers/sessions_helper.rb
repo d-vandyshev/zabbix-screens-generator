@@ -9,7 +9,7 @@ module SessionsHelper
 
   def destroy_session
     Rails.cache.delete(session[:uuid])
-    session[:uuid] = nil
+    reset_session
   end
 
   def logged_in?
