@@ -62,7 +62,7 @@ class ApplicationController < ActionController::Base
   private
   def locale_param
     locale = params.require(:locale).permit(:locale).fetch('locale').to_sym
-    locale = :en unless I18n.available_locales.include? locale
+    locale = I18n.default_locale unless I18n.available_locales.include? locale
     locale
   end
 
