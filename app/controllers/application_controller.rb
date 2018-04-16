@@ -40,7 +40,7 @@ class ApplicationController < ActionController::Base
 
   def screen
     zabbix = Rails.cache.read(session[:uuid])
-    @results = zabbix.create_screens hosts_ids_from_params
+    @results = zabbix.create_screens host_ids_params
   end
 
   private
@@ -49,14 +49,10 @@ class ApplicationController < ActionController::Base
     params.require(:hostgroup).permit(:id)
   end
 
-  def hosts_ids_from_params
-    ids = []
-    params.select do |k,v|
-      if k !~ /\D/ # check for only digits in string
-        ids << k
-      end
-    end
-    ids
+  def host_ids_params
+    ids = params[:host_ids].select { |id| id !~ /\D/ } # check for only digits in string
+    with_replace = params[:with_replace] ? true : false
+    return ids, with_replace
   end
 
   private

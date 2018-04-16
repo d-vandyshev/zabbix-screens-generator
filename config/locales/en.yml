@@ -57,6 +57,7 @@ en:
     please_select: "Please select group"
     no_hosts_in_group: "Sorry, but there is no hosts in this hostgroup"
     need_select_hosts: "Need to select hosts for generate screens"
+    replace_screen_if_exist: "Replace screens if exist"
   screens:
     success: "Screen is succefully created for host"
     fail_part1: "Unable to create screen for"

@@ -43,7 +43,8 @@ class ZabbixService
     hosts
   end
 
-  def create_screens(host_ids)
+  def create_screens(host_ids, with_replace)
+    # TODO Delete screen if with_replace and if it's exist
     host_names = host_names_by_id(host_ids)
     results = {}
     host_ids.each do |host_id|
