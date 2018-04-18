@@ -44,8 +44,9 @@ class ZabbixService
   end
 
   def create_screens(host_ids, with_replace)
-    # TODO Delete screen if with_replace and if it's exist
     host_names = host_names_by_id(host_ids)
+    delete_screens(host_names.values) if with_replace
+
     results = {}
     host_ids.each do |host_id|
       screenitems = []
@@ -88,6 +89,15 @@ class ZabbixService
   private
 
   attr_reader :server, :username, :password
+
+  #  Delete screens with names == host names
+  def delete_screens(host_names)
+    host_names.each do |host_name|
+      @zabbix_instance.screens.delete(
+          @zabbix_instance.screens.get_id(name: host_name)
+      )
+    end
+  end
 
   def connect
     ZabbixApi.connect(

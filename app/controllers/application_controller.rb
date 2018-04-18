@@ -40,7 +40,8 @@ class ApplicationController < ActionController::Base
 
   def screen
     zabbix = Rails.cache.read(session[:uuid])
-    @results = zabbix.create_screens host_ids_params
+    host_ids, with_replace = host_ids_params
+    @results = zabbix.create_screens(host_ids, with_replace)
   end
 
   private
