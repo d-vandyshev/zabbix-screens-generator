@@ -99,14 +99,13 @@ class ZabbixService
   end
 
   def host_names_by_id(host_ids)
-    hosts = @zabbix_instance.query(
+    host_names = Hash.new
+    @zabbix_instance.query(
         method: 'host.get',
         params: {
             hostids: host_ids
         }
-    )
-    host_names = Hash.new
-    hosts.each do |host|
+    ).each do |host|
       host_names[host['hostid']] = host['host']
     end
     host_names
