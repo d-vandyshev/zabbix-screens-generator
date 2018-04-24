@@ -1,5 +1,5 @@
 # Zabbix Screens Generator
-Web application for creating complex screens per host
+Web application for creating screens per host with all its graphs
 
 ## Technology stack
 | Element       | Tool                  |
