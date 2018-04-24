@@ -1,17 +1,15 @@
 # Zabbix Screens Generator
-_Web-application_ made to automate the creation of screens in Zabbix.
-
-```diff
-- Under Development! It is not ready for anything
-```
+Web application for creating complex screens per host
 
 ## Technology stack
-* Web framework: Ruby on Rails 5.4.1
-* Design: Froala blocks
-* CSS framework: bootstrap 4
-* Icons: SVG evil_icons
-* JS Framework: Stimulus
+| Element       | Tool                  |
+| ------------- | --------------------  |
+| Web framework | _Ruby on Rails 5.1.4_ |
+| Design        | _Froala blocks_       |
+| CSS framework | _Bootstrap 4_         |
+| Icons         | _SVG evil_icons_      |
+| JS Framework  | _Stimulus_            |
 
-## Notes
-* Place for Zabbix credentials: rails cache in memory
-* Multi-language support
+## Security
+* Place for Zabbix credentials (server, username, password): not stored
+* Place for Zabbix instance: save in memory of the app for current session
