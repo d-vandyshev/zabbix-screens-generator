@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
   def new
     if logged_in?
-      redirect_to generator_url
+      redirect_to screens_new_path
     end
   end
 
@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
     zabbix = ZabbixService.new(creds)
     if zabbix.auth_is_ok?
       set_session(creds[:username], zabbix)
-      redirect_to generator_url
+      redirect_to screens_new_path
     else
       flash.now[:danger] = I18n.t 'login.flash_invalid_login'
       destroy_session

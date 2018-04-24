@@ -1,2 +1,93 @@
-<h1>Screens#new</h1>
-<p>Find me in app/views/screens/new.html.erb</p>
+<section class="fdb-block login-section">
+  <div class="container" data-controller="host">
+    <div class="row">
+      <div class="col-12 col-md-8 col-lg-7 col-xl-7 text-left">
+        <div class="row">
+          <h2 class="text-secondary"><%= t 'step2' %></h2>
+        </div>
+        <div class="row">
+          <h1><%= t 'generator.head' %></h1>
+        </div>
+        <div class="row">
+          <h3><%= t 'generator.hostgroup' %></h3>
+        </div>
+        <div class="row">
+          <%= form_for(:hostgroup, url: screens_new_path) do |f| %>
+            <%= f.select(:id, options_for_select(
+                @hostgroups.unshift([t('generator.please_select'), 0, hidden: '']),
+                selected: @hostgroup_id || 0,
+                disabled: 0
+            ), {}, {:class => 'custom-select',
+                    'data-action' => 'host#changeHostgroup',
+                    'data-target' => 'host.hostgroup_id',
+                    'autocomplete' => 'off'} # To prevent Firefox remembers selected item after refresh
+                )
+            %>
+            <%= f.button :submit, class: 'invisible', 'data-target' => 'host.submit' %>
+          <% end %>
+        </div>
+        <% if @hostgroup_is_selected %>
+          <% if @hostgroup_with_hosts %>
+            <div class="row">
+              <%= form_for(:screen, url: screens_create_path) do |f| %>
+                <%= f.button(t('generator.submit_hosts'),
+                             {class: 'btn', 'data-action' => 'host#submitHosts'}
+                    )
+                %>
+                <div class="mt-3 form-check">
+                  <label class="form-check-label">
+                    <%= check_box_tag(:with_replace, 'true', false, {'class' => 'form-check-input'}) %>
+                    <%= t 'generator.replace_screen_if_exist' %>
+                  </label>
+                </div>
+                <a class="d-none" href="#my_popup" data-turbolinks="false" data-target="host.modal_no_hosts_selected">
+                  Open popup
+                </a>
+                <a id="my_popup" class="popup" href="#" data-turbolinks="false"></a>
+                <div class="popup card">
+                  <h2 class="card-header">
+                    <%= t 'warning' %>
+                  </h2>
+                  <div class="card-body text-center">
+                    <p class="card-title"><%= t 'generator.need_select_hosts' %></p>
+                    <div class="text-right">
+                      <a class="btn btn-secondary" href="#" data-turbolinks="false"><%= I18n.t('ok') %></a>
+                    </div>
+                  </div>
+                </div>
+                <table class="table table-bordered table-hover mt-3">
+                  <thead>
+                  <tr>
+                    <th scope="col"><%= t 'generator.host_name' %></th>
+                    <th scope="col"><%= t 'generator.host_ip' %></th>
+                    <th scope="col"><%= t 'generator.host_check' %>
+                      <%= check_box_tag(:check_all, '', false,
+                                        {'data-target' => 'host.checkall', 'data-action' => 'host#toggleAll'}
+                          ) %>
+                    </th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <% @hosts.each do |host| %>
+                    <tr>
+                      <td><%= host[:name] %></td>
+                      <td><%= host[:ip] %></td>
+                      <td class="text-center">
+                        <%= check_box_tag('host_ids[]', value = host[:id], false, {'data-target' => 'host.check'}) %>
+                      </td>
+                    </tr>
+                  <% end %>
+                  </tbody>
+                </table>
+              <% end %>
+            </div>
+          <% else %>
+            <div class="row alert alert-warning" role="alert">
+              <%= t 'generator.no_hosts_in_group' %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>
