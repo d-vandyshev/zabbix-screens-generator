@@ -1,16 +1,6 @@
 class ZabbixService
   def initialize(params)
-    @server = params[:server]
-    @username = params[:username]
-    @password = params[:password]
-  end
-
-  def auth_is_ok?
-    # TODO move connect in initiliaze
-    @zabbix_instance = connect
-    true
-  rescue
-    false
+    @zabbix_instance = connect(params[:server], params[:username], params[:password])
   end
 
   def hostgroups
@@ -99,11 +89,11 @@ class ZabbixService
     end
   end
 
-  def connect
+  def connect(server, username, password)
     ZabbixApi.connect(
-        url: "http://#{@server}/api_jsonrpc.php",
-        user: @username,
-        password: @password,
+        url: "http://#{server}/api_jsonrpc.php",
+        user: username,
+        password: password,
         timeout: 5
     )
   end

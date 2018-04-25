@@ -6,16 +6,13 @@ class SessionsController < ApplicationController
   end
 
   def create
-    creds = zabbix_creds_params
-    zabbix = ZabbixService.new(creds)
-    if zabbix.auth_is_ok?
-      set_session(creds[:username], zabbix)
-      redirect_to screens_new_path
-    else
-      flash.now[:danger] = I18n.t 'login.flash_invalid_login'
-      destroy_session
-      render 'new'
-    end
+    zabbix = ZabbixService.new(params_zabbix_creds)
+    set_session(params_zabbix_creds.fetch(:username), zabbix)
+    redirect_to screens_new_path
+  rescue
+    flash.now[:danger] = I18n.t 'login.flash_invalid_login'
+    destroy_session
+    render 'new'
   end
 
   def destroy
@@ -26,7 +23,7 @@ class SessionsController < ApplicationController
 
   private
 
-  def zabbix_creds_params
+  def params_zabbix_creds
     params.require(:session).permit(:server, :username, :password)
   end
 end
