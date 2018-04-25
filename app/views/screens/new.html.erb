@@ -69,7 +69,7 @@
                   </thead>
                   <tbody>
                   <% @hosts.each do |host| %>
-                    <tr>
+                    <tr data-action="click->host#checkByRowClick">
                       <td><%= host[:name] %></td>
                       <td><%= host[:ip] %></td>
                       <td class="text-center">

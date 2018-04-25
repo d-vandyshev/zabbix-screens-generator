@@ -25,6 +25,13 @@ export default class extends Controller {
         })
     }
 
+    checkByRowClick(event) {
+        if (event.target.tagName !== 'INPUT') {
+            let checkbox = event.target.parentElement.getElementsByTagName('input')[0]
+            checkbox.checked = !checkbox.checked
+        }
+    }
+
     get checkall() {
         return this.checkallTarget.checked
     }
