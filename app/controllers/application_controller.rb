@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   include SessionsHelper
 
   def set_locale
-    I18n.locale = session[:locale] || extract_locale_from_accept_language_header
+    I18n.locale = session[:locale] || locale_from_accept_lang_header
     # For select locale in header
     @available_locales = I18n.available_locales.map { |l| [l.to_s.upcase, l] }
     @selected_locale = I18n.locale
