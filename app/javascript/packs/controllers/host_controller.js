@@ -16,12 +16,9 @@ export default class extends Controller {
     }
 
     toggleAll() {
-        this.checkTargets.forEach((c) => {
-            if (this.checkall) {
-                c.checked = true
-            } else {
-                c.checked = false
-            }
+        this.checkTargets.forEach((checkbox) => {
+            checkbox.checked = this.checkall
+            this.switchHighlightRow(checkbox)
         })
     }
 
@@ -29,6 +26,20 @@ export default class extends Controller {
         if (event.target.tagName !== 'INPUT') {
             let checkbox = event.target.parentElement.getElementsByTagName('input')[0]
             checkbox.checked = !checkbox.checked
+            this.switchHighlightRow(checkbox)
+        }
+    }
+
+    highlightRow(event) {
+        this.switchHighlightRow(event.target)
+    }
+
+    switchHighlightRow(checkbox) {
+        let tr = checkbox.parentNode.parentNode
+        if(checkbox.checked) {
+            tr.classList.add("table-info")
+        } else {
+            tr.classList.remove("table-info")
         }
     }
 
