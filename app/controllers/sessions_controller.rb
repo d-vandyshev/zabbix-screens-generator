@@ -25,5 +25,9 @@ class SessionsController < ApplicationController
 
   def params_zabbix_creds
     params.require(:session).permit(:server, :username, :password)
+    [params[:server],
+     params[:username],
+     params[:password]].map!{|e| e.chars.first(64).join}
+    params
   end
 end

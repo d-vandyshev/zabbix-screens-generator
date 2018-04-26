@@ -28,7 +28,7 @@ class ScreensController < ApplicationController
   end
 
   def params_hostgroup_id
-    params.require(:hostgroup).permit(:id).fetch('id')
+    params.require(:hostgroup).permit(:id).fetch('id').select {|id| id !~ /\D/}
   end
 
   def params_host_ids
