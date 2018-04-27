@@ -11,8 +11,8 @@ class SessionsController < ApplicationController
     redirect_to screens_new_path
   rescue
     flash.now[:danger] = I18n.t 'login.flash_invalid_login'
-    destroy_session
     render 'new'
+    destroy_session
   end
 
   def destroy
