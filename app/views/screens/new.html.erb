@@ -35,8 +35,12 @@
                     )
                 %>
                 <div class="mt-3 form-check">
-                  <label class="form-check-label">
-                    <%= check_box_tag(:with_replace, 'true', false, {'class' => 'form-check-input'}) %>
+                  <label class="form-check-label" data-target="host.replace_label">
+                    <%= check_box_tag(:with_replace, 'true', false, {
+                        'class' => 'form-check-input',
+                        'data-target' => 'host.replace_checkbox',
+                        'data-action' => 'host#underlineCheckboxLabel'
+                    }) %>
                     <%= t 'generator.replace_screen_if_exist' %>
                   </label>
                 </div>
