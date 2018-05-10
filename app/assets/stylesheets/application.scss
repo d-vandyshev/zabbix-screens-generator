@@ -68,3 +68,9 @@ div.popup {
   -ms-box-sizing	: border-box;
   box-sizing	: border-box;
 }
+
+.field_with_errors {
+  background-color: #dc3545;
+  border-radius: 0.25rem;
+  padding: 2px;
+}

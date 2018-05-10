@@ -1,3 +1,10 @@
+<% if @credentials && @credentials.errors.any? %>
+  <% @credentials.errors.full_messages.each do |msg| %>
+    <div class="alert alert-danger %> text-center">
+      <h4><%= msg %></h4>
+    </div>
+  <% end %>
+<% end %>
 <section class="fdb-block login-section">
   <div class="container">
     <div class="row">
@@ -9,7 +16,7 @@
             <p class="text-h3"><%= I18n.t 'login.desc' %></p>
           </div>
         </div>
-        <%= form_for(:session, url: '/') do |f| %>
+        <%= form_for(@credentials, url: '/') do |f| %>
           <div class="row">
             <div class="col mt-4">
               <%= f.text_field :server, class: 'form-control', placeholder: I18n.t('login.placeholder.server') %>

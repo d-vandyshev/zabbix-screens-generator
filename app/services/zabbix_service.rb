@@ -1,6 +1,6 @@
 class ZabbixService
-  def initialize(params)
-    @zabbix_instance = connect(params[:server], params[:username], params[:password])
+  def initialize(credentials)
+    @zabbix_instance = connect(credentials.server, credentials.username, credentials.password)
   end
 
   def hostgroups

@@ -3,12 +3,18 @@ class SessionsController < ApplicationController
     if logged_in?
       redirect_to screens_new_path
     end
+    @credentials = Credentials.new
   end
 
   def create
-    zabbix = ZabbixService.new(params_zabbix_creds)
-    set_session(params_zabbix_creds.fetch(:username), zabbix)
-    redirect_to screens_new_path
+    @credentials = Credentials.new(params_zabbix_creds)
+    if @credentials.valid?
+      zabbix = ZabbixService.new(@credentials)
+      set_session(params_zabbix_creds.fetch(:username), zabbix)
+      redirect_to screens_new_path
+    else
+      render 'new'
+    end
   rescue
     flash.now[:danger] = I18n.t 'login.flash_invalid_login'
     render 'new'
@@ -23,6 +29,6 @@ class SessionsController < ApplicationController
   private
 
   def params_zabbix_creds
-    params.require(:session).permit(:server, :username, :password)
+    params.require(:credentials).permit(:server, :username, :password)
   end
 end

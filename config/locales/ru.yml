@@ -66,3 +66,24 @@ ru:
     fail_part2: "(возможно, он уже существует)"
     result: "Результат:"
     select_another_hosts: "Выбрать другие узлы сети"
+
+# Models & Validation errors
+  activemodel:
+    attributes:
+      credentials:
+        server: "Сервер"
+        username: "Логин"
+        password: "Пароль"
+    errors:
+      models:
+        credentials:
+          attributes:
+            password:
+              blank: "не может быть пустым"
+              too_long: "превышает максимальный размер в %{count} символов"
+            server:
+              blank: "не может быть пустым"
+              invalid: "не является доменным именем или IP-адресом"
+            username:
+              blank: "не может быть пустым"
+              invalid: "содержит специальные символы"
