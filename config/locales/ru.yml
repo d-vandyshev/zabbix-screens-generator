@@ -50,12 +50,11 @@ ru:
   step3: "Шаг 3 из 3"
   generator:
     head: "Создание комплексных экранов"
-    hostgroup: "Группа узлов сети:"
     host_name: "Имя"
     host_ip: "IP"
     host_check: "Выбрать всё"
     submit_hosts: "Создать комплексные экраны"
-    please_select: "Выбрать группу"
+    select_hostgroup: "Выберите группу узлов сети"
     no_hosts_in_group: "Извините, в этой группе нет узлов сети"
     need_select_hosts: "Необходимо выбрать узлы сети для создания комплексных экранов"
     replace_screen_if_exist: "Заменить комплексные экраны если существуют"

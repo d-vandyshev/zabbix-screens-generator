@@ -49,12 +49,11 @@ en:
   step3: "Step 3 of 3"
   generator:
     head: "Generate Screens"
-    hostgroup: "Host group:"
     host_name: "Name"
     host_ip: "IP"
     host_check: "Select all"
     submit_hosts: "Create Screens"
-    please_select: "Please select group"
+    select_hostgroup: "Please select host group"
     no_hosts_in_group: "Sorry, but there is no hosts in this hostgroup"
     need_select_hosts: "Need to select hosts for generate screens"
     replace_screen_if_exist: "Replace screens if exist"

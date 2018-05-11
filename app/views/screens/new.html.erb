@@ -9,12 +9,9 @@
           <h1><%= t 'generator.head' %></h1>
         </div>
         <div class="row">
-          <h3><%= t 'generator.hostgroup' %></h3>
-        </div>
-        <div class="row">
           <%= form_for(:hostgroup, url: screens_new_path) do |f| %>
             <%= f.select(:id, options_for_select(
-                @hostgroups.unshift([t('generator.please_select'), 0, hidden: '']),
+                @hostgroups.unshift([t('generator.select_hostgroup'), 0, hidden: '']),
                 selected: @hostgroup_id || 0,
                 disabled: 0
             ), {}, {:class => 'custom-select',
