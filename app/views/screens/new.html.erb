@@ -34,6 +34,7 @@
                              {class: 'btn', 'data-action' => 'host#submitHosts'}
                     )
                 %>
+                <small class="form-text text-muted"><%= I18n.t('screens.description_for_create_button') %></small>
                 <div class="mt-3 form-check">
                   <label class="form-check-label" data-target="host.replace_label">
                     <%= check_box_tag(:with_replace, 'true', false, {

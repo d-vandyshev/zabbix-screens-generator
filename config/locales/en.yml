@@ -60,6 +60,7 @@ en:
     replace_screen_if_exist: "Replace screens if exist"
   screens:
     must_be_logged_in: "You must be logged in to access this section"
+    description_for_create_button: "with names of these host"
     success: "Screen is succefully created for host"
     fail_part1: "Unable to create screen for"
     fail_part2: "(perhaps, it's already exist)"
