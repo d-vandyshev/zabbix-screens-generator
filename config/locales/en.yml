@@ -39,6 +39,7 @@ en:
     submit: "Submit"
     flash_invalid_login: "Error! Credentials for access to Zabbix server is invalid"
     flash_success_logout: "Log out successful"
+    pattern_title: "No special characters or spaces"
     placeholder:
       server: "Zabbix DNS-name or IP-address"
       username: "Username"

@@ -38,7 +38,8 @@ ru:
     desc: "Необходимо для доступа к Zabbix API. Задать логин с правами чтения узлов сети"
     submit: "Отправить"
     flash_invalid_login: "Ошибка! Неправильная комбинация логин/пароль"
-    flash_success_logout: "Успешно разлогинились!"
+    flash_success_logout: "Сессия закончена"
+    pattern_title: "Без специальных символов или пробелов"
     placeholder:
       server: "Zabbix DNS-name or IP-address"
       server: "Zabbix DNS-имя or IP-адрес"
