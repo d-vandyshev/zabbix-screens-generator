@@ -4,10 +4,17 @@ Web application for creating screens per host with all its graphs
 
 ## Table of contents
 
-   * [Technology stack](#technology-stack)
+   * [Deployed on Heroku](#deployed-on-heroku)
    * [Installation](#installation)
    * [Usage](#usage)
+   * [Technology stack](#technology-stack)
    * [Security](#security)
+
+## Deployed on Heroku
+
+https://zabbix-screens-gen.herokuapp.com
+
+With this instance on herokuapp you can create screens if your zabbix server is accessible from the Internet.
 
 ## Installation
  
