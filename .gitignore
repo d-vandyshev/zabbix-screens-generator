@@ -24,6 +24,8 @@
 .idea
 /public/packs
 /public/packs-test
+/public/assets
+/coverage
 /node_modules
 yarn-debug.log*
 .yarn-integrity

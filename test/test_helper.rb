@@ -1,3 +1,11 @@
+require 'simplecov'
+require 'simplecov-formatter-badge'
+SimpleCov.start 'rails'
+SimpleCov.formatter =
+    SimpleCov::Formatter::MultiFormatter.new \
+    [SimpleCov::Formatter::HTMLFormatter,
+     SimpleCov::Formatter::BadgeFormatter]
+
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 
