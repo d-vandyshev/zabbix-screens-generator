@@ -4,7 +4,7 @@ module SessionsHelper
   def set_session(username, zabbix)
     session[:uuid] = SecureRandom.uuid
     session[:username] = username
-    Rails.cache.write(session[:uuid], {zabbix: zabbix, hostgroups: zabbix.hostgroups})
+    Rails.cache.write(session[:uuid], zabbix)
   end
 
   def destroy_session

@@ -2,7 +2,7 @@ class ScreensController < ApplicationController
   before_action :require_login
 
   def new
-    @hostgroups = hostgroups_from_cache
+    @hostgroups = zabbix_from_cache.hostgroups
 
     if request.post?
       @hostgroup_is_selected = true
@@ -38,10 +38,6 @@ class ScreensController < ApplicationController
   end
 
   def zabbix_from_cache
-    Rails.cache.read(session[:uuid]).fetch(:zabbix)
-  end
-
-  def hostgroups_from_cache
-    Rails.cache.read(session[:uuid]).fetch(:hostgroups)
+    Rails.cache.read(session[:uuid])
   end
 end
