@@ -9,15 +9,17 @@ class CredentialsTest < ActiveSupport::TestCase
 
   test "server and username should be valid without special characters" do
     %w[1.1.1.1 zabbix первый-admin].each do |str|
-      creds = Credentials.new(server: str, username: str, password: 'passw')
-      assert creds.valid?
+      assert Credentials.new(server: str, username: str, password: 'passw').valid?
     end
   end
 
   test "server and username should be invalid with special characters" do
     %w[http://1.1.1.1 zab*bix adm&%$in].each do |str|
-      creds = Credentials.new(server: str, username: str, password: 'passw')
-      assert_not creds.valid?
+      assert_not Credentials.new(server: str, username: str, password: 'passw').valid?
     end
+  end
+
+  test "password should not very long" do
+    assert_not Credentials.new(server: 'zab', username: 'user', password: '1' * 129).valid?
   end
 end
