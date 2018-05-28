@@ -72,10 +72,10 @@
                   <tbody>
                   <% @hosts.each do |host| %>
                     <tr data-action="click->host#checkByRowClick">
-                      <td><%= host[:name] %></td>
-                      <td><%= host[:ip] %></td>
+                      <td><%= host.name %></td>
+                      <td><%= host.ip %></td>
                       <td class="text-center">
-                        <%= check_box_tag('host_ids[]', value = host[:id], false, {
+                        <%= check_box_tag('host_ids[]', value = host.id, false, {
                             'data-target' => 'host.check',
                             'data-action' => 'host#highlightRow'
                         }) %>

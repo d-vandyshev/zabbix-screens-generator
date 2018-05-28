@@ -25,11 +25,7 @@ class ZabbixService
           break
         end
       end
-      hosts << {
-          name: host['name'],
-          ip: ip,
-          id: host['hostid']
-      }
+      hosts << Struct.new(:id, :name, :ip).new(host['hostid'], host['name'], ip)
     end
     hosts
   end
