@@ -221,7 +221,7 @@ PLATFORMS
 
 DEPENDENCIES
   bootstrap (= 4.0.0)
-  byebug
+  byebug (= 10.0.1)
   capybara (~> 2.13)
   coffee-rails (= 4.2.2)
   evil_icons (= 1.9.0)
@@ -230,9 +230,9 @@ DEPENDENCIES
   puma (= 3.11.0)
   rails (= 5.1.4)
   sass-rails (= 5.0.7)
-  selenium-webdriver
-  simplecov
-  simplecov-formatter-badge
+  selenium-webdriver (= 3.11.0)
+  simplecov (= 0.16.1)
+  simplecov-formatter-badge (= 0.1.0)
   spring
   spring-watcher-listen (~> 2.0.0)
   turbolinks (= 5.0.1)

@@ -40,12 +40,12 @@ gem 'jbuilder', '2.7.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'byebug', '10.0.1', platforms: [:mri, :mingw, :x64_mingw]
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
-  gem 'selenium-webdriver'
-  gem 'simplecov', require: false
-  gem 'simplecov-formatter-badge', require: false
+  gem 'selenium-webdriver', '3.11.0'
+  gem 'simplecov', '0.16.1', require: false
+  gem 'simplecov-formatter-badge', '0.1.0', require: false
 end
 
 group :development do
