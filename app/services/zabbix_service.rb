@@ -1,23 +1,18 @@
 class ZabbixService
+
+  Host = Struct.new(:id, :name, :ip)
+
   def initialize(credentials)
     @zabbix_instance = connect(credentials.server, credentials.username, credentials.password)
-    @hostgroups = hostgroups
   end
 
   def hostgroups
-    @hostgroups ||= @zabbix_instance.hostgroups.all.sort.to_a
+    @hostgroups = hostgroups_all.sort.to_a
   end
 
-  def hosts_by_hostgroup_id(id)
-    hosts_raw = @zabbix_instance.query(
-        method: 'host.get',
-        params: {
-            'selectInterfaces' => 'extend',
-            groupids: id
-        }
-    )
+  def hosts_by_hostgroup(id)
     hosts = []
-    hosts_raw.each do |host|
+    hosts_by_hostgroup_raw(id).each do |host|
       ip = nil
       host['interfaces'].each do |inet|
         if inet['main'] == '1'
@@ -25,7 +20,7 @@ class ZabbixService
           break
         end
       end
-      hosts << Struct.new(:id, :name, :ip).new(host['hostid'], host['name'], ip)
+      hosts << Host.new(host['hostid'], host['name'], ip)
     end
     hosts
   end
@@ -128,5 +123,19 @@ class ZabbixService
       end
     end
     sorted_graphs += graphs
+  end
+
+  def hostgroups_all
+    @zabbix_instance.hostgroups.all
+  end
+
+  def hosts_by_hostgroup_raw(id)
+    @zabbix_instance.query(
+        method: 'host.get',
+        params: {
+            'selectInterfaces' => 'extend',
+            groupids: id
+        }
+    )
   end
 end

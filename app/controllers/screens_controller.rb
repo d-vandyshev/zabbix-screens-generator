@@ -6,7 +6,7 @@ class ScreensController < ApplicationController
 
     if request.post?
       @hostgroup_is_selected = true
-      @hosts = zabbix_from_cache.hosts_by_hostgroup_id(params_hostgroup_id)
+      @hosts = zabbix_from_cache.hosts_by_hostgroup(params_hostgroup_id)
       @hostgroup_with_hosts = !@hosts.empty?
       @hostgroup_id = params_hostgroup_id # for selected
     else
