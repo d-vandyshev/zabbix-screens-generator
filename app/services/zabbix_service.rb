@@ -12,7 +12,7 @@ class ZabbixService
 
   def hosts_by_hostgroup(id)
     hosts = []
-    hosts_by_hostgroup_raw(id).each do |host|
+    hosts_by_hostgroup_query(id).each do |host|
       ip = nil
       host['interfaces'].each do |inet|
         if inet['main'] == '1'
@@ -92,12 +92,7 @@ class ZabbixService
 
   def host_names_by_id(host_ids)
     host_names = Hash.new
-    @zabbix_instance.query(
-        method: 'host.get',
-        params: {
-            hostids: host_ids
-        }
-    ).each do |host|
+    host_names_by_id_query(host_ids).each do |host|
       host_names[host['hostid']] = host['host']
     end
     host_names
@@ -129,12 +124,21 @@ class ZabbixService
     @zabbix_instance.hostgroups.all
   end
 
-  def hosts_by_hostgroup_raw(id)
+  def hosts_by_hostgroup_query(id)
     @zabbix_instance.query(
         method: 'host.get',
         params: {
             'selectInterfaces' => 'extend',
             groupids: id
+        }
+    )
+  end
+
+  def host_names_by_id_query(host_ids)
+    @zabbix_instance.query(
+        method: 'host.get',
+        params: {
+            hostids: host_ids
         }
     )
   end
