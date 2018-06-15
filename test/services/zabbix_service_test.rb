@@ -15,13 +15,19 @@ class ZabbixServiceTest < ActiveSupport::TestCase
 
   test 'hostgroups should convert and sort' do
     @zabbix.stub(:hostgroups_all, hostgroups_unsorted_hash) do
-      assert @zabbix.hostgroups.eql? hostgroups_sorted_array
+      assert_equal @zabbix.hostgroups, hostgroups_sorted_array
     end
   end
 
   test 'hosts_by_hostgroup should process data' do
-    @zabbix.stub(:hosts_by_hostgroup_raw, hosts_raw) do
-      assert @zabbix.hosts_by_hostgroup(1).eql? hosts_processed
+    @zabbix.stub(:hosts_by_hostgroup_query, hosts_query) do
+      assert_equal @zabbix.hosts_by_hostgroup(1), hosts_processed
+    end
+  end
+
+  test 'host_names_by_id should return Hash' do
+    @zabbix.stub(:host_names_by_id_query, hosts_query) do
+      assert_equal @zabbix.send('host_names_by_id', %w{201 202}), {'201'=>'TestHost-1', '202'=>'TestHost-2'}
     end
   end
 
@@ -35,7 +41,7 @@ class ZabbixServiceTest < ActiveSupport::TestCase
     [%w{abc 20}, %w{xyz 10}]
   end
 
-  def hosts_raw
+  def hosts_query
     [{'hostid' => '201', 'proxy_hostid' => '0', 'host' => 'TestHost-1', 'status' => '0', 'disable_until' => '0', 'error' => '',
       'available' => '0', 'errors_from' => '0', 'lastaccess' => '0', 'ipmi_authtype' => '-1', 'ipmi_privilege' => '2',
       'ipmi_username' => '', 'ipmi_password' => '', 'ipmi_disable_until' => '0', 'ipmi_available' => '0',
