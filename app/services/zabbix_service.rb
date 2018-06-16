@@ -75,11 +75,13 @@ class ZabbixService
 
   #  Delete screens with names == host names
   def delete_screens(host_names)
-    host_names.each do |host_name|
-      @zabbix_instance.screens.delete(
-          @zabbix_instance.screens.get_id(name: host_name)
-      )
-    end
+    host_names.each{|name| delete_screen_query(name)}
+  end
+
+  def delete_screen_query(name)
+    @zabbix_instance.screens.delete(
+        @zabbix_instance.screens.get_id(name: name)
+    )
   end
 
   def connect(server, username, password)
