@@ -54,6 +54,22 @@ class ZabbixServiceTest < ActiveSupport::TestCase
 
   end
 
+  test 'delete_screens should run delete_screen_query' do
+    @zabbix.stub(:delete_screen_query, true) do
+      assert_equal %w{hostname1 hostname2}, @zabbix.send('delete_screens', %w{hostname1 hostname2})
+    end
+  end
+
+  test 'delete_screen_query should call ZabbixApi methods' do
+    mock_zabbixapi = Minitest::Mock.new
+    mock_zabbixapi.expect :delete, true, [Integer]
+    mock_zabbixapi.expect :get_id, 101, [{name: 'hostname1'}]
+    zabbixapi_instance.stub(:screens, mock_zabbixapi) do
+        assert @zabbix.send(:delete_screen_query, 'hostname1')
+    end
+    assert_mock mock_zabbixapi
+  end
+
   private
 
   def hostgroups_unsorted_hash
@@ -62,6 +78,10 @@ class ZabbixServiceTest < ActiveSupport::TestCase
 
   def hostgroups_sorted_array
     [%w{abc 20}, %w{xyz 10}]
+  end
+
+  def hosts_hash_expected
+    {'201' => 'TestHost-1', '202' => 'TestHost-2'}
   end
 
   def hosts_query
