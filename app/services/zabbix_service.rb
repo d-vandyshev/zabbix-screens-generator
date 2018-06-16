@@ -1,13 +1,14 @@
 class ZabbixService
 
   Host = Struct.new(:id, :name, :ip)
+  GRAPH_NAME_SORT_ORDER = %w(потери loss ответа timeout cpu memory uptime channel gigabit fast)
 
   def initialize(credentials)
     @zabbix_instance = connect(credentials.server, credentials.username, credentials.password)
   end
 
   def hostgroups
-    @hostgroups = hostgroups_all.sort.to_a
+    @hostgroups = hostgroups_all_query.sort.to_a
   end
 
   def hosts_by_hostgroup(id)
@@ -26,14 +27,14 @@ class ZabbixService
   end
 
   def create_screens(host_ids, with_replace)
-    host_names = host_names_by_id(host_ids)
+    host_names = host_names_by_ids(host_ids)
     delete_screens(host_names.values) if with_replace
 
     results = {}
     host_ids.each do |host_id|
       screenitems = []
       x = y = 0
-      sorted_graphs_by_hostid(host_id).each do |graph|
+      sorted_graphs_by_host(host_id).each do |graph|
         screenitems << {
             resourceid: graph['graphid'],
             resourcetype: 0,
@@ -90,7 +91,7 @@ class ZabbixService
     )
   end
 
-  def host_names_by_id(host_ids)
+  def host_names_by_ids(host_ids)
     host_names = Hash.new
     host_names_by_id_query(host_ids).each do |host|
       host_names[host['hostid']] = host['host']
@@ -98,16 +99,10 @@ class ZabbixService
     host_names
   end
 
-  def sorted_graphs_by_hostid(host_id)
-    graphs = @zabbix_instance.query(
-        method: 'graph.get',
-        params: {
-            hostids: host_id
-        }
-    )
-    graphs = graphs.sort_by {|graph| graph['name']}
+  def sorted_graphs_by_host(id)
+    graphs = graphs_by_host_query(id).sort_by {|graph| graph['name']}
     sorted_graphs = []
-    %w(потери loss ответа timeout cpu memory uptime channel gigabit fast).each do |word|
+    GRAPH_NAME_SORT_ORDER.each do |word|
       graphs.delete_if do |graph|
         if graph['name'].downcase.include? word
           sorted_graphs << graph
@@ -120,7 +115,7 @@ class ZabbixService
     sorted_graphs += graphs
   end
 
-  def hostgroups_all
+  def hostgroups_all_query
     @zabbix_instance.hostgroups.all
   end
 
@@ -139,6 +134,15 @@ class ZabbixService
         method: 'host.get',
         params: {
             hostids: host_ids
+        }
+    )
+  end
+
+  def graphs_by_host_query(id)
+    @zabbix_instance.query(
+        method: 'graph.get',
+        params: {
+            hostids: id
         }
     )
   end

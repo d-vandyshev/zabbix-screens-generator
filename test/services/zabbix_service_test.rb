@@ -3,14 +3,20 @@ require 'test_helper'
 
 class ZabbixServiceTest < ActiveSupport::TestCase
   setup do
-    @credentials = Struct.new(:server, :username, :password).new('server', 'username', 'password')
-    ZabbixApi.stub(:connect, :zabbixapi) do
-      @zabbix = ZabbixService.new(@credentials)
+    creds = Struct.new(:server, :username, :password).new('server', 'username', 'password')
+    ZabbixApi::Client.stub(:new, :zabbixapi_client) do
+      @zabbix = ZabbixService.new(creds
+
+      )
     end
+
+    # Change GRAPH_NAME_SORT_ORDER for tests
+    ZabbixService.send(:remove_const, 'GRAPH_NAME_SORT_ORDER')
+    ZabbixService.const_set('GRAPH_NAME_SORT_ORDER', %w{cpu memory timeout})
   end
 
   test 'connect should return Zabbix object' do
-    assert @zabbix.instance_variable_get(:@zabbix_instance).eql? :zabbixapi
+    assert zabbixapi_instance.instance_of?(ZabbixApi)
   end
 
   test 'hostgroups should convert and sort' do
@@ -20,15 +26,32 @@ class ZabbixServiceTest < ActiveSupport::TestCase
   end
 
   test 'hosts_by_hostgroup should process data' do
-    @zabbix.stub(:hosts_by_hostgroup_query, hosts_query) do
+    zabbixapi_instance.stub(:query, hosts_query) do
       assert_equal @zabbix.hosts_by_hostgroup(1), hosts_processed
     end
   end
 
-  test 'host_names_by_id should return Hash' do
-    @zabbix.stub(:host_names_by_id_query, hosts_query) do
-      assert_equal @zabbix.send('host_names_by_id', %w{201 202}), {'201'=>'TestHost-1', '202'=>'TestHost-2'}
+  test 'host_names_by_ids should return Hash' do
+    zabbixapi_instance.stub(:query, hosts_query) do
+      assert_equal @zabbix.send('host_names_by_ids', %w{201 202}), {'201' => 'TestHost-1', '202' => 'TestHost-2'}
     end
+  end
+
+  test 'sorted_graphs_by_host should sort' do
+    zabbixapi_instance.stub(:query, graphs_query) do
+      assert_equal @zabbix.send('sorted_graphs_by_host', 1), sorted_graphs
+    end
+  end
+
+  test 'hostgroups_all_query should call' do
+    # assert_equal
+
+    mock = Minitest::Mock.new
+    mock.expect :apply, true
+
+    @zabbix.send('hostgroups_all_query')
+
+
   end
 
   private
@@ -71,5 +94,47 @@ class ZabbixServiceTest < ActiveSupport::TestCase
   def hosts_processed
     [ZabbixService::Host.new('201', 'TestHost-1', '10.10.10.2'),
      ZabbixService::Host.new('202', 'TestHost-2', '10.10.10.3')]
+  end
+
+  def zabbixapi_instance
+    @zabbix.instance_variable_get(:@zabbix_instance)
+  end
+
+  def graphs_query
+    [
+        {'graphid' => '302', 'name' => 'Memory', 'width' => '900', 'height' => '200',
+         'yaxismin' => '0.0000', 'yaxismax' => '100.0000', 'templateid' => '2001', 'show_work_period' => '1',
+         'show_triggers' => '1', 'graphtype' => '0', 'show_legend' => '1', 'show_3d' => '0', 'percent_left' => '0.0000',
+         'percent_right' => '0.0000', 'ymin_type' => '0', 'ymax_type' => '0', 'ymin_itemid' => '0', 'ymax_itemid' => '0',
+         'flags' => '0'},
+        {'graphid' => '303', 'name' => 'Timeout', 'width' => '900', 'height' => '200', 'yaxismin' => '0.0000',
+         'yaxismax' => '100.0000', 'templateid' => '2002', 'show_work_period' => '1', 'show_triggers' => '1',
+         'graphtype' => '0', 'show_legend' => '1', 'show_3d' => '0', 'percent_left' => '0.0000', 'percent_right' => '0.0000',
+         'ymin_type' => '0', 'ymax_type' => '0', 'ymin_itemid' => '0', 'ymax_itemid' => '0', 'flags' => '0'},
+        {'graphid' => '301', 'name' => 'CPU', 'width' => '900', 'height' => '200', 'yaxismin' => '0.0000',
+         'yaxismax' => '100.0000', 'templateid' => '2003', 'show_work_period' => '1', 'show_triggers' => '1',
+         'graphtype' => '0', 'show_legend' => '1', 'show_3d' => '0', 'percent_left' => '0.0000', 'percent_right' => '0.0000',
+         'ymin_type' => '0', 'ymax_type' => '0', 'ymin_itemid' => '0', 'ymax_itemid' => '0', 'flags' => '0'}
+    ]
+  end
+
+  def sorted_graphs
+    [
+        {'graphid' => '301', 'name' => 'CPU', 'width' => '900', 'height' => '200', 'yaxismin' => '0.0000',
+         'yaxismax' => '100.0000', 'templateid' => '2003', 'show_work_period' => '1', 'show_triggers' => '1',
+         'graphtype' => '0', 'show_legend' => '1', 'show_3d' => '0', 'percent_left' => '0.0000',
+         'percent_right' => '0.0000', 'ymin_type' => '0', 'ymax_type' => '0', 'ymin_itemid' => '0',
+         'ymax_itemid' => '0', 'flags' => '0'},
+        {'graphid' => '302', 'name' => 'Memory', 'width' => '900', 'height' => '200', 'yaxismin' => '0.0000',
+         'yaxismax' => '100.0000', 'templateid' => '2001', 'show_work_period' => '1', 'show_triggers' => '1',
+         'graphtype' => '0', 'show_legend' => '1', 'show_3d' => '0', 'percent_left' => '0.0000',
+         'percent_right' => '0.0000', 'ymin_type' => '0', 'ymax_type' => '0', 'ymin_itemid' => '0',
+         'ymax_itemid' => '0', 'flags' => '0'},
+        {'graphid' => '303', 'name' => 'Timeout', 'width' => '900', 'height' => '200', 'yaxismin' => '0.0000',
+         'yaxismax' => '100.0000', 'templateid' => '2002', 'show_work_period' => '1', 'show_triggers' => '1',
+         'graphtype' => '0', 'show_legend' => '1', 'show_3d' => '0', 'percent_left' => '0.0000',
+         'percent_right' => '0.0000', 'ymin_type' => '0', 'ymax_type' => '0', 'ymin_itemid' => '0',
+         'ymax_itemid' => '0', 'flags' => '0'}
+    ]
   end
 end
