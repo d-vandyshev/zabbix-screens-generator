@@ -42,13 +42,14 @@ That runs a local webserver. On a local machine, paste the URL http://localhost:
 
 ## Technology stack
 
-| Element       | Tool                  |
-| ------------- | --------------------  |
-| Web framework | _Ruby on Rails 5.1.4_ |
-| Design        | _Froala blocks_       |
-| CSS framework | _Bootstrap 4_         |
-| Icons         | _SVG evil_icons_      |
-| JS Framework  | _Stimulus_            |
+| Element        | Tool                  |
+| -------------- | --------------------- |
+| Web framework  | _Ruby on Rails 5.1.4_ |
+| Design         | _Froala blocks_       |
+| CSS framework  | _Bootstrap 4_         |
+| JS Framework   | _Stimulus_            |
+| Icons          | _SVG evil_icons_      |
+| Test Framework | _Minitest_            |
 
 ## Security
 
