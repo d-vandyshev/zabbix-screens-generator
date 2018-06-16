@@ -3,10 +3,9 @@ require 'test_helper'
 
 class ZabbixServiceTest < ActiveSupport::TestCase
   setup do
-    creds = Struct.new(:server, :username, :password).new('server', 'username', 'password')
     ZabbixApi::Client.stub(:new, :zabbixapi_client) do
-      @zabbix = ZabbixService.new(creds
-
+      @zabbix = ZabbixService.new(
+          Struct.new(:server, :username, :password).new('server', 'username', 'password')
       )
     end
 
@@ -16,42 +15,40 @@ class ZabbixServiceTest < ActiveSupport::TestCase
   end
 
   test 'connect should return Zabbix object' do
-    assert zabbixapi_instance.instance_of?(ZabbixApi)
+    assert_instance_of ZabbixApi, zabbixapi_instance
   end
 
   test 'hostgroups should convert and sort' do
-    @zabbix.stub(:hostgroups_all, hostgroups_unsorted_hash) do
-      assert_equal @zabbix.hostgroups, hostgroups_sorted_array
+    @zabbix.stub(:hostgroups_all_query, hostgroups_unsorted_hash) do
+      assert_equal hostgroups_sorted_array, @zabbix.hostgroups
     end
   end
 
   test 'hosts_by_hostgroup should process data' do
     zabbixapi_instance.stub(:query, hosts_query) do
-      assert_equal @zabbix.hosts_by_hostgroup(1), hosts_processed
+      assert_equal hosts_processed, @zabbix.hosts_by_hostgroup(1)
     end
   end
 
   test 'host_names_by_ids should return Hash' do
     zabbixapi_instance.stub(:query, hosts_query) do
-      assert_equal @zabbix.send('host_names_by_ids', %w{201 202}), {'201' => 'TestHost-1', '202' => 'TestHost-2'}
+      assert_equal hosts_hash_expected, @zabbix.send('host_names_by_ids', %w{201 202})
     end
   end
 
   test 'sorted_graphs_by_host should sort' do
     zabbixapi_instance.stub(:query, graphs_query) do
-      assert_equal @zabbix.send('sorted_graphs_by_host', 1), sorted_graphs
+      assert_equal sorted_graphs, @zabbix.send('sorted_graphs_by_host', 1)
     end
   end
 
-  test 'hostgroups_all_query should call' do
-    # assert_equal
-
-    mock = Minitest::Mock.new
-    mock.expect :apply, true
-
-    @zabbix.send('hostgroups_all_query')
-
-
+  test 'hostgroups_all_query should call method all and return an array' do
+    mock_hostgroups = Minitest::Mock.new
+    mock_hostgroups.expect :all, [1, 2]
+    zabbixapi_instance.stub(:hostgroups, mock_hostgroups) do
+      assert_equal [1, 2], @zabbix.send('hostgroups_all_query')
+    end
+    assert_mock mock_hostgroups
   end
 
   test 'delete_screens should run delete_screen_query' do
