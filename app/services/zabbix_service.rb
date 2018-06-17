@@ -32,10 +32,10 @@ class ZabbixService
 
     results = {}
     host_ids.each do |host_id|
-      screenitems = []
+      screen_items = []
       x = y = 0
       sorted_graphs_by_host(host_id).each do |graph|
-        screenitems << {
+        screen_items << {
             resourceid: graph['graphid'],
             resourcetype: 0,
             width: '700',
@@ -50,32 +50,33 @@ class ZabbixService
           x = 0
         end
       end
-      is_success = true
-      begin
-        @zabbix_instance.query(
-            method: 'screen.create',
-            params: {
-                name: host_names[host_id],
-                hsize: 2,
-                vsize: screenitems.count / 2 + 1,
-                screenitems: screenitems
-            }
-        )
-      rescue
-        is_success = false
-      end
-      results[host_names[host_id]] = is_success
+      results[host_names[host_id]] = screen_create_query(host_names[host_id], screen_items)
     end
     results
   end
 
   private
 
+  def screen_create_query(screen_name, screen_items)
+    @zabbix_instance.query(
+        method: 'screen.create',
+        params: {
+            name: screen_name,
+            hsize: 2,
+            vsize: screen_items.count / 2 + 1,
+            screenitems: screen_items
+        }
+    )
+    return true
+  rescue
+    return false
+  end
+
   attr_reader :server, :username, :password
 
   #  Delete screens with names == host names
   def delete_screens(host_names)
-    host_names.each{|name| delete_screen_query(name)}
+    host_names.each {|name| delete_screen_query(name)}
   end
 
   def delete_screen_query(name)
