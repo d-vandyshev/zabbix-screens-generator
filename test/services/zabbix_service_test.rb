@@ -62,12 +62,48 @@ class ZabbixServiceTest < ActiveSupport::TestCase
     mock_zabbixapi.expect :delete, true, [Integer]
     mock_zabbixapi.expect :get_id, 101, [{name: 'hostname1'}]
     zabbixapi_instance.stub(:screens, mock_zabbixapi) do
-        assert @zabbix.send(:delete_screen_query, 'hostname1')
+      assert @zabbix.send(:delete_screen_query, 'hostname1')
     end
     assert_mock mock_zabbixapi
   end
 
+  test 'create_screens should create them without replace' do
+    @zabbix.stub(:host_names_by_ids, hosts_hash_expected, %w{201 202}) do
+      @zabbix.stub(:sorted_graphs_by_host, sorted_graphs) do
+        @zabbix.stub(:screen_create_query, true, 'TestHost-1', Array.new) do
+          assert_equal create_screens_expected_result, @zabbix.create_screens(%w{201 202}, false)
+        end
+      end
+    end
+  end
+
+  test 'create_screens should create them with replace' do
+    @zabbix.stub(:host_names_by_ids, hosts_hash_expected, %w{201 202}) do
+      @zabbix.stub(:delete_screens, true) do
+        @zabbix.stub(:sorted_graphs_by_host, sorted_graphs) do
+          @zabbix.stub(:screen_create_query, true, 'TestHost-1', Array.new) do
+            assert_equal create_screens_expected_result, @zabbix.create_screens(%w{201 202}, true)
+          end
+        end
+      end
+    end
+  end
+
+  test 'screen_create_query should return true if ok' do
+    zabbixapi_instance.stub(:query, true) do
+      assert @zabbix.send(:screen_create_query, 'TestHost-1', [])
+    end
+  end
+
+  test 'screen_create_query should return false if an Exception is occured' do
+    assert_not @zabbix.send(:screen_create_query, 'TestHost-1', [])
+  end
+
   private
+
+  def create_screens_expected_result
+    {'TestHost-1' => true, 'TestHost-2' => true}
+  end
 
   def hostgroups_unsorted_hash
     {'xyz' => '10', 'abc' => '20'}
