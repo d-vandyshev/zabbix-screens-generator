@@ -46,6 +46,7 @@ group :development, :test do
   gem 'selenium-webdriver', '3.11.0'
   gem 'simplecov', '0.16.1', require: false
   gem 'simplecov-formatter-badge', '0.1.0', require: false
+  gem 'minitest-stub_any_instance', '1.0.2'
 end
 
 group :development do
