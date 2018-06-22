@@ -9,8 +9,9 @@ class SessionsController < ApplicationController
   def create
     @credentials = Credentials.new(params_zabbix_creds)
     if @credentials.valid?
+      username = params_zabbix_creds.fetch(:username)
       zabbix = ZabbixService.new(@credentials)
-      set_session(params_zabbix_creds.fetch(:username), zabbix)
+      set_session(username, zabbix)
       redirect_to screens_new_path
     else
       render 'new'
