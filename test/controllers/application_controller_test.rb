@@ -13,9 +13,9 @@ class ApplicationControllerTest < ActionDispatch::IntegrationTest
     end
     ApplicationController.stub_any_instance(:locale_from_accept_lang_header, 'en') do
       get test_url
-      assert_not_nil @controller.instance_variable_get(:@available_locales) # [["EN", :en], ["RU", :ru]]
-      assert_not_nil @controller.instance_variable_get(:@selected_locale)   # :en
     end
+    assert_not_nil @controller.instance_variable_get(:@available_locales) # [["EN", :en], ["RU", :ru]]
+    assert_not_nil @controller.instance_variable_get(:@selected_locale)   # :en
     Rails.application.reload_routes!
   end
 
