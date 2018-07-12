@@ -23,7 +23,13 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'create should set_session and redirect if valid?' do
-    ZabbixService.stub(:new, :zabbixapi) do
+    class MockZabbixApiConnected < String # For pass many checks of value in Rails.cache.write()
+      def connected?
+        true
+      end
+    end
+    mock_zabbixapi = MockZabbixApiConnected.new('zabbixapi')
+    ZabbixService.stub(:new, mock_zabbixapi) do
       post '/', params: {credentials: {server: 'server', username: 'username', password: 'password'}}
     end
     assert_instance_of Credentials, @controller.instance_variable_get(:@credentials)
@@ -32,35 +38,28 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     # test set_session from SessionsHelper module
     assert_instance_of String, session[:uuid]
     assert_equal 'username', session[:username]
-    assert_equal :zabbixapi, Rails.cache.read(session[:uuid])
+    assert_equal 'zabbixapi', Rails.cache.read(session[:uuid])
   end
 
-  test 'create should render new and flash if not valid?' do
-    ZabbixService.stub(:new, :zabbixapi) do
-      SessionsController.stub_any_instance(:set_session, true) do
-        post root_url, params: {credentials: {server: 's/erver', username: 'us?er&name', password: 'password'}}
+  test 'create should render new when unable to connect' do
+    class MockZabbixApiNotConnected < String # For pass many checks of value in Rails.cache.write()
+      def connected?
+        false
       end
     end
-    assert_response :success
-  end
-
-  test 'create should render new when Exception is occured' do
-    class ::ZabbixService
-      alias_method :ini, :initialize
-      def initialize(param)
-        raise 'Exception in connect'
-      end
-    end
-
-    SessionsController.stub_any_instance(:set_session, true) do
+    mock_zabbixapi = MockZabbixApiNotConnected.new('zabbixapi')
+    ZabbixService.stub(:new, mock_zabbixapi) do
       post '/', params: {credentials: {server: 'server', username: 'username', password: 'password'}}
     end
     assert_not flash.empty?
     assert_response :success
+  end
 
-    class ::ZabbixService
-      alias_method :initialize, :ini
+  test 'create should render new if not valid?' do
+    SessionsController.stub_any_instance(:set_session, true) do
+      post root_url, params: {credentials: {server: 's/erver', username: 'us?er&name', password: 'password'}}
     end
+    assert_response :success
   end
 
   test 'destroy should destroy_session flash and redirect' do
