@@ -7,6 +7,10 @@ class ZabbixService
     @zabbix_instance = connect(credentials.server, credentials.username, credentials.password)
   end
 
+  def connected?
+    @zabbix_instance.nil? ? false : true
+  end
+
   def hostgroups
     @hostgroups = hostgroups_all_query.sort.to_a
   end
@@ -92,6 +96,8 @@ class ZabbixService
         password: password,
         timeout: 5
     )
+  rescue
+    nil
   end
 
   def host_names_by_ids(host_ids)
