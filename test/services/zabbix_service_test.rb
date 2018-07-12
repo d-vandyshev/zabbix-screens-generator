@@ -18,6 +18,24 @@ class ZabbixServiceTest < ActiveSupport::TestCase
     assert_instance_of ZabbixApi, zabbixapi_instance
   end
 
+  test 'connect should return nil if not connected' do
+    ZabbixApi::Client.stub_any_instance(:api_version, 'bad_value_for_raise') do
+      zabbixapi = ZabbixService.new(
+          Struct.new(:server, :username, :password).new('server', 'username', 'password')
+      )
+      assert_nil zabbixapi.instance_variable_get(:@zabbix_instance)
+    end
+  end
+
+  test 'connected? should return true if connected' do
+    assert @zabbix.connected?
+  end
+
+  test 'connected? should return true if not connected' do
+    @zabbix.instance_variable_set(:@zabbix_instance, nil)
+    assert_not @zabbix.connected?
+  end
+
   test 'hostgroups should convert and sort' do
     @zabbix.stub(:hostgroups_all_query, hostgroups_unsorted_hash) do
       assert_equal hostgroups_sorted_array, @zabbix.hostgroups
