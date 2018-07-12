@@ -8,17 +8,19 @@ class SessionsController < ApplicationController
 
   def create
     @credentials = Credentials.new(params_zabbix_creds)
-    if @credentials.valid?
-      username = params_zabbix_creds.fetch(:username)
-      zabbix = ZabbixService.new(@credentials)
-      set_session(username, zabbix)
-      redirect_to screens_new_path
-    else
-      render 'new'
+    unless @credentials.valid?
+      render 'new' and return
     end
-  rescue
-    flash.now[:danger] = I18n.t 'login.flash_invalid_login'
-    render 'new'
+
+    zabbix = ZabbixService.new(@credentials)
+    unless zabbix.connected?
+      flash.now[:danger] = I18n.t 'login.flash_invalid_login'
+      render 'new' and return
+    end
+
+    username = params_zabbix_creds.fetch(:username)
+    set_session(username, zabbix)
+    redirect_to screens_new_path
   end
 
   def destroy
