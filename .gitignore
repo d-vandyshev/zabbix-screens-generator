@@ -25,7 +25,8 @@
 /public/packs
 /public/packs-test
 /public/assets
-/coverage
+/coverage/*
+!/coverage/coverage.svg
 /node_modules
 yarn-debug.log*
 .yarn-integrity
