@@ -1,4 +1,6 @@
-# Zabbix Screens Generator
+# Zabbix Screens Generator 
+
+![Test coverage](coverage/coverage.svg)
 
 Web application for creating screens per host with all its graphs
 
