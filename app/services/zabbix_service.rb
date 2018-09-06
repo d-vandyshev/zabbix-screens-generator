@@ -54,6 +54,8 @@ class ZabbixService
           x = 0
         end
       end
+      # Value for field "vsize": must be between "1" and "100"
+      screen_items = screen_items.first(200)
       results[host_names[host_id]] = screen_create_query(host_names[host_id], screen_items)
     end
     results
@@ -62,12 +64,15 @@ class ZabbixService
   private
 
   def screen_create_query(screen_name, screen_items)
+    vsize = screen_items.count / 2
+    vsize += 1 if screen_items.count.odd?
+
     @zabbix_instance.query(
         method: 'screen.create',
         params: {
             name: screen_name,
             hsize: 2,
-            vsize: screen_items.count / 2 + 1,
+            vsize: vsize,
             screenitems: screen_items
         }
     )
@@ -84,9 +89,8 @@ class ZabbixService
   end
 
   def delete_screen_query(name)
-    @zabbix_instance.screens.delete(
-        @zabbix_instance.screens.get_id(name: name)
-    )
+    screen_id = @zabbix_instance.screens.get_id(name: name)
+    @zabbix_instance.screens.delete(screen_id) unless screen_id.nil?
   end
 
   def connect(server, username, password)
