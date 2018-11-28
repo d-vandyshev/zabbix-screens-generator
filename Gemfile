@@ -6,7 +6,7 @@ git_source(:github) do |repo_name|
 end
 
 # by div0
-gem 'bootstrap', '4.0.0'
+gem 'bootstrap', '4.1.2'
 gem 'zabbixapi', '3.2.1'
 gem 'evil_icons', '1.9.0'
 gem 'webpacker', '3.2.2'
