@@ -27,6 +27,5 @@
 /public/assets
 /coverage/*
 !/coverage/coverage.svg
-/node_modules
 yarn-debug.log*
 .yarn-integrity
