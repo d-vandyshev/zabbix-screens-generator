@@ -1,6 +1,6 @@
 # Zabbix Screens Generator 
 
-![Test coverage](https://github.com/d-vandyshev/zabbix-screens-generator/blob/master/coverage/coverage.svg)
+![Test coverage](https://github.com/d-vandyshev/zabbix-screens-generator/raw/master/coverage/coverage.svg?sanitize=true)
 
 Web application for creating screens per host with all its graphs
 
@@ -34,13 +34,13 @@ That runs a local webserver. On a local machine, paste the URL http://localhost:
 ## Usage
 
 1. Open URL http://localhost:3000 and enter Zabbix credentials
-![Zabbix Screen Generator - Login page](https://github.com/d-vandyshev/zabbix-screens-generator/tree/master/screenshots/Screen1_Login.png)
+![Zabbix Screen Generator - Login page](https://github.com/d-vandyshev/zabbix-screens-generator/blob/master/screenshots/Screen1_Login.png?raw=true)
 1. Select Host group
-![Zabbix Screen Generator - Select Hostgroup page](https://github.com/d-vandyshev/zabbix-screens-generator/tree/master/screenshots/Screen2_SelectHostgroup.png)
+![Zabbix Screen Generator - Select Hostgroup page](https://github.com/d-vandyshev/zabbix-screens-generator/blob/master/screenshots/Screen2_SelectHostgroup.png?raw=true)
 1. Select the hosts for which you want to create screens
-![Zabbix Screen Generator - Select Hosts page](https://github.com/d-vandyshev/zabbix-screens-generator/tree/master/screenshots/Screen3_CheckHosts.png)
+![Zabbix Screen Generator - Select Hosts page](https://github.com/d-vandyshev/zabbix-screens-generator/blob/master/screenshots/Screen3_CheckHosts.png?raw=true)
 1. Page with statuses
-![Zabbix Screen Generator - Select Hosts page](https://github.com/d-vandyshev/zabbix-screens-generator/tree/master/screenshots/Screen4_Result.png)
+![Zabbix Screen Generator - Select Hosts page](https://github.com/d-vandyshev/zabbix-screens-generator/blob/master/screenshots/Screen4_Result.png?raw=true)
 
 ## Technology stack
 
