@@ -18,7 +18,7 @@ https://zabbix-screens-gen.herokuapp.com
 
 With this instance on Heroku you can create screens if your Zabbix server is accessible from the Internet.
 
-_The app is deployed on a free dyno. Free dynos will sleep after a half hour of inactivity. This causes a delay of a few seconds for the first request upon waking. Subsequent requests will perform normally_  
+_The app is deployed on a free dyno. Free dynos will sleep after a half hour of inactivity. This causes a delay of a few seconds for the first request upon waking. Subsequent requests will perform much faster_  
 
 ## Installation
  
