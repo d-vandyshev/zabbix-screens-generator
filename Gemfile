@@ -7,7 +7,7 @@ end
 
 # by div0
 gem 'bootstrap', '4.1.2'
-gem 'zabbixapi', '3.2.1'
+gem 'zabbixapi', '4.1.0'
 gem 'evil_icons', '1.9.0'
 gem 'webpacker', '3.2.2'
 
