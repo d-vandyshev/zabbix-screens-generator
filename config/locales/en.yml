@@ -37,7 +37,7 @@ en:
     head: "Auth to Zabbix"
     desc: "Need for access to Zabbix API. Login must have a permissions to read hosts for create screens"
     submit: "Submit"
-    flash_invalid_login: "Error! Credentials for access to Zabbix server is invalid"
+    flash_invalid_login: "Error! Credentials for access to Zabbix server are invalid"
     flash_success_logout: "Log out successful"
     pattern_title: "No special characters or spaces"
     placeholder:
