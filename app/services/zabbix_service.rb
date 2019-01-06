@@ -4,11 +4,12 @@ class ZabbixService
   GRAPH_NAME_SORT_ORDER = %w(потери loss ответа timeout cpu memory uptime channel gigabit fast)
 
   def initialize(credentials)
-    @zabbix_instance = connect(credentials.server, credentials.username, credentials.password)
-  end
-
-  def connected?
-    @zabbix_instance.nil? ? false : true
+    @zabbix_instance = ZabbixApi.connect(
+        url: "http://#{credentials.server}/api_jsonrpc.php",
+        user: credentials.username,
+        password: credentials.password,
+        timeout: 5
+    )
   end
 
   def hostgroups
@@ -91,17 +92,6 @@ class ZabbixService
   def delete_screen_query(name)
     screen_id = @zabbix_instance.screens.get_id(name: name)
     @zabbix_instance.screens.delete(screen_id) unless screen_id.nil?
-  end
-
-  def connect(server, username, password)
-    ZabbixApi.connect(
-        url: "http://#{server}/api_jsonrpc.php",
-        user: username,
-        password: password,
-        timeout: 5
-    )
-  rescue
-    nil
   end
 
   def host_names_by_ids(host_ids)

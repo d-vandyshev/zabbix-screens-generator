@@ -12,9 +12,14 @@ class SessionsController < ApplicationController
       render 'new' and return
     end
 
-    zabbix = ZabbixService.new(@credentials)
-    unless zabbix.connected?
-      flash.now[:danger] = I18n.t 'login.flash_invalid_login'
+    begin
+      zabbix = ZabbixService.new(@credentials)
+    rescue => e
+      flash.now[:danger] = if e.message.include?('Login name or password is incorrect')
+                             I18n.t 'login.flash_invalid_login'
+                           else
+                             "Error! #{e.class}: #{e.message}"
+                           end
       render 'new' and return
     end
 
