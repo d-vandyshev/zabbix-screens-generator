@@ -6,30 +6,30 @@ git_source(:github) do |repo_name|
 end
 
 # by div0
-gem 'bootstrap', '4.1.2'
+gem 'bootstrap', '4.2.1'
 gem 'zabbixapi', '4.1.0'
-gem 'evil_icons', '1.9.0'
-gem 'webpacker', '3.2.2'
+gem 'evil_icons', '1.10.1'
+gem 'webpacker', '3.5.5'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '5.1.6.1'
+gem 'rails', '5.2.2'
 # Use sqlite3 as the database for Active Record
 # gem 'sqlite3'
 # Use Puma as the app server
-gem 'puma', '3.11.0'
+gem 'puma', '3.12.0'
 # Use SCSS for stylesheets
 gem 'sass-rails', '5.0.7'
 # Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '4.0.2'
+gem 'uglifier', '4.1.20'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '4.2.2'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'turbolinks', '5.0.1'
+gem 'turbolinks', '5.2.0'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '2.7.0'
+gem 'jbuilder', '2.8.0'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
@@ -40,10 +40,10 @@ gem 'jbuilder', '2.7.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', '10.0.1', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'byebug', '10.0.2', platforms: [:mri, :mingw, :x64_mingw]
   # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '~> 2.13'
-  gem 'selenium-webdriver', '3.11.0'
+  gem 'capybara', '3.12.0'
+  gem 'selenium-webdriver', '3.141.0'
   gem 'simplecov', '0.16.1', require: false
   gem 'simplecov-formatter-badge', '0.1.0', require: false
   gem 'minitest-stub_any_instance', '1.0.2'
@@ -59,4 +59,4 @@ group :development do
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', '1.2018.9', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
