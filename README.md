@@ -46,7 +46,7 @@ That runs a local webserver. On a local machine, paste the URL http://localhost:
 
 | Element        | Tool                  |
 | -------------- | --------------------- |
-| Web framework  | _Ruby on Rails 5.1.4_ |
+| Web framework  | _Ruby on Rails 5_ |
 | Design         | _Froala blocks_       |
 | CSS framework  | _Bootstrap 4_         |
 | JS Framework   | _Stimulus_            |
