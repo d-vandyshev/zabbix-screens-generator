@@ -22,9 +22,12 @@
 
 .byebug_history
 .idea
-/public/packs
-/public/packs-test
-/public/assets
+/public/dev-packs
+/public/dev-assets
+/public/assets/@*
+/public/packs/*.gz
+/public/packs/*.map
+/public/packs/controllers
 /coverage/*
 !/coverage/coverage.svg
 yarn-debug.log*
