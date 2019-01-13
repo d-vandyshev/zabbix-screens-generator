@@ -1,0 +1,8 @@
+{
+  "application.js": "/packs/application-657e63162ee6aa843a86.js",
+  "application.js.map": "/packs/application-657e63162ee6aa843a86.js.map",
+  "controllers/host_controller.js": "/packs/controllers/host_controller-6a3de7504ec7e9249fdb.js",
+  "controllers/host_controller.js.map": "/packs/controllers/host_controller-6a3de7504ec7e9249fdb.js.map",
+  "controllers/locale_controller.js": "/packs/controllers/locale_controller-1ab203733a9c1039b51e.js",
+  "controllers/locale_controller.js.map": "/packs/controllers/locale_controller-1ab203733a9c1039b51e.js.map"
+}
