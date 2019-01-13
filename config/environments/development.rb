@@ -46,6 +46,9 @@ Rails.application.configure do
   # Disable gzipped assets generation
   config.assets.gzip = false
 
+  # Separate path for assets in development
+  config.assets.prefix = '/dev-assets'
+
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
