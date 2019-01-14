@@ -2,11 +2,6 @@ version: '3'
 
 services:
   app:
-    context: https://github.com/d-vandyshev/zabbix-screens-generator
-#    image: zsg_app
+    image: dmitvan/zabbix-screens-generator
     ports:
-      - "80:3000"
-    environment:
-      - RAILS_ENV=production
-      - RAILS_SERVE_STATIC_FILES=yes
-      - RAILS_LOG_TO_STDOUT=yes
+      - "3000:3000"
