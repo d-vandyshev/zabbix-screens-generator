@@ -8,6 +8,8 @@ Web application for creating screens per host with all its graphs
 
    * [Deployed on Heroku](#deployed-on-heroku)
    * [Installation](#installation)
+     * [Manual from Github](#manual-from-github)
+     * [Docker](#docker)
    * [Usage](#usage)
    * [Technology stack](#technology-stack)
    * [Security](#security)
@@ -21,15 +23,28 @@ With this instance on Heroku you can create screens if your Zabbix server is acc
 _The app is deployed on a free dyno. Free dynos will sleep after a half hour of inactivity. This causes a delay of a few seconds for the first request upon waking. Subsequent requests will perform much faster_  
 
 ## Installation
- 
+
+### Manual from Github
 Assuming that you have already installed Git, Ruby, NodeJS
 
-1. git clone https://github.com/d-vandyshev/zabbix-screens-generator
-1. cd zabbix-screens-generator
-1. bundle install
-1. rails server
+```
+git clone https://github.com/d-vandyshev/zabbix-screens-generator
+cd zabbix-screens-generator
+bundle install
+rails server
+```
 
 That runs a local webserver. On a local machine, paste the URL http://localhost:3000 into the address bar of your browser.
+
+### Docker
+1. Run automated build from Docker Hub:
+    ```
+    docker run -p3000:3000 dmitvan/zabbix-screens-generator
+    ```
+2. Open URL in your favorite browser:
+    ```
+    http://localhost:3000
+    ```
 
 ## Usage
 
