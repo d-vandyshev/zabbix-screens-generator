@@ -6,14 +6,14 @@
     <div class="row">
       <h1><%= t 'screens.result' %></h1>
     </div>
-    <% @results.each do |host, result| %>
-      <% if result === true %>
+    <% @results.each do |result| %>
+      <% if result.status === true %>
         <div class="row alert alert-success" role="alert">
-          <%= t 'screens.success' %> <%= host %>
+          <%= t 'screens.success' %> <%= result.hostname %><% if result.excess_vsize? %>. Rows' quantity of this screen was limited to 100 (Zabbix restriction)<% end %>
         </div>
       <% else %>
         <div class="row alert alert-danger" role="alert">
-          <%= t('screens.fail_part1') + ' ' + host.to_s + ' ' + t('screens.fail_part2') %>
+          <%= t('screens.fail_part1') + ' ' + result.hostname + ' ' + t('screens.fail_part2') %>
         </div>
       <% end %>
     <% end %>

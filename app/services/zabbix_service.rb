@@ -1,6 +1,7 @@
 class ZabbixService
 
   Host = Struct.new(:id, :name, :ip)
+  Result = Struct.new(:hostname, :status, :excess_vsize?)
   GRAPH_NAME_SORT_ORDER = %w(потери loss ответа timeout cpu memory uptime channel gigabit fast)
 
   def initialize(credentials)
@@ -35,7 +36,7 @@ class ZabbixService
     host_names = host_names_by_ids(host_ids)
     delete_screens(host_names.values) if with_replace
 
-    results = {}
+    results = []
     host_ids.each do |host_id|
       screen_items = []
       x = y = 0
@@ -55,9 +56,16 @@ class ZabbixService
           x = 0
         end
       end
-      # Value for field "vsize": must be between "1" and "100"
+
+      # There is a Zabbix restriction of vsize. Value for field "vsize": must be between "1" and "100"
+      excess_vsize = screen_items.size > 200 ? true : false
       screen_items = screen_items.first(200)
-      results[host_names[host_id]] = screen_create_query(host_names[host_id], screen_items)
+
+      results << Result.new(
+          host_names[host_id],
+          screen_create_query(host_names[host_id], screen_items),
+          excess_vsize
+      )
     end
     results
   end
