@@ -257,5 +257,8 @@ DEPENDENCIES
   webpacker (= 3.5.5)
   zabbixapi (= 4.1.0)
 
+RUBY VERSION
+   ruby 2.5.3p105
+
 BUNDLED WITH
-   1.16.1
+   1.16.2
