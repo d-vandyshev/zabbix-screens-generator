@@ -39,7 +39,10 @@ class ScreensControllerTest < ActionDispatch::IntegrationTest
 
   test 'create should call zabbix create' do
     mock_zabbix = Minitest::Mock.new
-    result = {'name200' => true, 'name201' => true}
+    result = [
+        ZabbixService::Result.new('name200', true, false),
+        ZabbixService::Result.new('name201', false, true)
+    ]
     params_host_ids_result = [%w{200 201}, true]
     mock_zabbix.expect :create_screens, result, params_host_ids_result
     ScreensController.stub_any_instance(:logged_in?, true) do
