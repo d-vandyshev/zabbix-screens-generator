@@ -1,3 +1,4 @@
+require 'minitest/autorun'
 require 'simplecov'
 require 'simplecov-formatter-badge'
 SimpleCov.start 'rails' do
