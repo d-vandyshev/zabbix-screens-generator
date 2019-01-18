@@ -42,14 +42,9 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'create should render new when unable to connect' do
-    class MockZabbixApiNotConnected < String # For pass many checks of value in Rails.cache.write()
-      def connected?
-        false
-      end
-    end
-    mock_zabbixapi = MockZabbixApiNotConnected.new('zabbixapi')
-    ZabbixService.stub(:new, mock_zabbixapi) do
-      post '/', params: {credentials: {server: 'server', username: 'username', password: 'password'}}
+    raises_exception = -> {raise Net::OpenTimeout}
+    ZabbixApi.stub(:connect, raises_exception) do
+      post '/', params: {credentials: {server: '192.168.1.2', username: 'username', password: 'password'}}
     end
     assert_not flash.empty?
     assert_response :success

@@ -1,4 +1,3 @@
-require 'minitest/autorun'
 require 'test_helper'
 
 class ZabbixServiceTest < ActiveSupport::TestCase
@@ -18,22 +17,15 @@ class ZabbixServiceTest < ActiveSupport::TestCase
     assert_instance_of ZabbixApi, zabbixapi_instance
   end
 
-  test 'connect should return nil if not connected' do
-    ZabbixApi::Client.stub_any_instance(:api_version, 'bad_value_for_raise') do
-      zabbixapi = ZabbixService.new(
-          Struct.new(:server, :username, :password).new('server', 'username', 'password')
-      )
-      assert_nil zabbixapi.instance_variable_get(:@zabbix_instance)
+  test 'connect should raise an exception if not connected' do
+    raises_exception = -> (arg) {raise Net::OpenTimeout}
+    ZabbixApi.stub(:connect, raises_exception) do
+      assert_raises(Net::OpenTimeout) do
+        ZabbixService.new(
+            Struct.new(:server, :username, :password).new('server', 'username', 'password')
+        )
+      end
     end
-  end
-
-  test 'connected? should return true if connected' do
-    assert @zabbix.connected?
-  end
-
-  test 'connected? should return true if not connected' do
-    @zabbix.instance_variable_set(:@zabbix_instance, nil)
-    assert_not @zabbix.connected?
   end
 
   test 'hostgroups should convert and sort' do
@@ -120,7 +112,8 @@ class ZabbixServiceTest < ActiveSupport::TestCase
   private
 
   def create_screens_expected_result
-    {'TestHost-1' => true, 'TestHost-2' => true}
+    [ZabbixService::Result.new('TestHost-1', true, false),
+     ZabbixService::Result.new('TestHost-2', true, false)]
   end
 
   def hostgroups_unsorted_hash
