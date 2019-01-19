@@ -1,4 +1,3 @@
-require 'minitest/autorun'
 require 'simplecov'
 require 'simplecov-formatter-badge'
 SimpleCov.start 'rails' do
@@ -11,6 +10,7 @@ SimpleCov.formatter =
     [SimpleCov::Formatter::HTMLFormatter,
      SimpleCov::Formatter::BadgeFormatter]
 
+require 'minitest/autorun'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 
