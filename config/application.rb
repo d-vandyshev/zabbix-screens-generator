@@ -28,5 +28,6 @@ module ZabbixScreensGenerator
     # the framework and any gems in your application.
 
     config.cache_store = :memory_store
+    config.exceptions_app = self.routes
   end
 end
