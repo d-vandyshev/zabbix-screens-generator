@@ -23,6 +23,7 @@
 .byebug_history
 .idea
 /public/dev-packs
+/public/test-packs
 /public/dev-assets
 /public/assets/@*
 /public/packs/*.gz
