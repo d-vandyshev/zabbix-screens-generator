@@ -67,6 +67,9 @@ ru:
     fail_part2: "(возможно, он уже существует)"
     result: "Результат:"
     select_another_hosts: "Выбрать другие узлы сети"
+  errors:
+    page_not_found: "Страница не найдена (404)"
+    internal_server_error: "Произошла внутренная ошибка сервера! (500)"
 
 # Models & Validation errors
   activemodel:
