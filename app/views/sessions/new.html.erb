@@ -16,7 +16,7 @@
             <p class="text-h3"><%= I18n.t 'login.desc' %></p>
           </div>
         </div>
-        <%= form_for(@credentials, url: '/') do |f| %>
+        <%= form_for(@credentials, url: '/', remote: true) do |f| %>
           <div class="row">
             <div class="col mt-4">
               <%= f.text_field :server, class: 'form-control', placeholder: I18n.t('login.placeholder.server'),
