@@ -30,7 +30,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     end
     mock_zabbixapi = MockZabbixApiConnected.new('zabbixapi')
     ZabbixService.stub(:new, mock_zabbixapi) do
-      post '/', params: {credentials: {server: 'server', username: 'username', password: 'password'}}
+      post '/', params: { credentials: { server: 'server', username: 'username', password: 'password' } }
     end
     assert_instance_of Credentials, @controller.instance_variable_get(:@credentials)
     assert_redirected_to screens_new_path
@@ -42,9 +42,9 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'create should render new when unable to connect' do
-    raises_exception = -> {raise Net::OpenTimeout}
+    raises_exception = -> { raise Net::OpenTimeout }
     ZabbixApi.stub(:connect, raises_exception) do
-      post '/', params: {credentials: {server: '192.168.1.2', username: 'username', password: 'password'}}
+      post '/', params: { credentials: { server: '192.168.1.2', username: 'username', password: 'password' } }
     end
     assert_not flash.empty?
     assert_response :success
@@ -52,7 +52,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
 
   test 'create should render new if not valid?' do
     SessionsController.stub_any_instance(:set_session, true) do
-      post root_url, params: {credentials: {server: 's/erver', username: 'us?er&name', password: 'password'}}
+      post root_url, params: { credentials: { server: 's/erver', username: 'us?er&name', password: 'password' } }
     end
     assert_response :success
   end

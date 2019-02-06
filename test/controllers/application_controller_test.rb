@@ -15,15 +15,16 @@ class ApplicationControllerTest < ActionDispatch::IntegrationTest
       get test_url
     end
     assert_not_nil @controller.instance_variable_get(:@available_locales) # [["EN", :en], ["RU", :ru]]
-    assert_not_nil @controller.instance_variable_get(:@selected_locale)   # :en
+    assert_not_nil @controller.instance_variable_get(:@selected_locale) # :en
     Rails.application.reload_routes!
   end
 
   test 'locale_from_accept_lang_header should extract lang header' do
     @controller = ApplicationController.new
     mrequest = Minitest::Mock.new
+
     def mrequest.env
-      {'HTTP_ACCEPT_LANGUAGE' => 'en,ru;q=0.9,fi;q=0.8,be;q=0.7,vi;q=0.6'}
+      { 'HTTP_ACCEPT_LANGUAGE' => 'en,ru;q=0.9,fi;q=0.8,be;q=0.7,vi;q=0.6' }
     end
 
     @controller.stub(:request, mrequest) do
@@ -35,7 +36,7 @@ class ApplicationControllerTest < ActionDispatch::IntegrationTest
     ApplicationController.stub_any_instance(:set_locale, true) do
       demo_app_url = 'https://zabbix-screens-gen.herokuapp.com'
       post '/change_locale',
-           params: {locale: {locale: 'ru'}},
+           params: { locale: { locale: 'ru' } },
            headers: { 'HTTP_REFERER' => demo_app_url }
       assert_equal :ru, session[:locale]
       assert_response :redirect

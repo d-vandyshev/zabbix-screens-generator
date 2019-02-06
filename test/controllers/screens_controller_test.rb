@@ -28,7 +28,7 @@ class ScreensControllerTest < ActionDispatch::IntegrationTest
     mock_zabbix.expect :hosts_by_hostgroup, [], [String]
     ScreensController.stub_any_instance(:logged_in?, true) do
       ScreensController.stub_any_instance(:zabbix_from_cache, mock_zabbix) do
-        post screens_new_url, params: {hostgroup: {id: 10}}
+        post screens_new_url, params: { hostgroup: { id: 10 } }
       end
     end
     assert_equal true, @controller.instance_variable_get(:@hostgroup_is_selected)
@@ -40,14 +40,14 @@ class ScreensControllerTest < ActionDispatch::IntegrationTest
   test 'create should call zabbix create' do
     mock_zabbix = Minitest::Mock.new
     result = [
-        ZabbixService::Result.new('name200', true, false),
-        ZabbixService::Result.new('name201', false, true)
+      ZabbixService::Result.new('name200', true, false),
+      ZabbixService::Result.new('name201', false, true)
     ]
     params_host_ids_result = [%w{200 201}, true]
     mock_zabbix.expect :create_screens, result, params_host_ids_result
     ScreensController.stub_any_instance(:logged_in?, true) do
       ScreensController.stub_any_instance(:zabbix_from_cache, mock_zabbix) do
-        post screens_create_url, params: {host_ids: [200, 201], with_replace: true}
+        post screens_create_url, params: { host_ids: [200, 201], with_replace: true }
       end
     end
     assert_equal params_host_ids_result, @controller.send(:params_host_ids)
