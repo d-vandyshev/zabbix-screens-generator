@@ -1,0 +1,29 @@
+Rails:
+  Enabled: true
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Metrics/AbcSize:
+  Max: 16
+
+Metrics/LineLength:
+  Max: 120
+
+Metrics/MethodLength:
+  Max: 30
+
+Style/Documentation:
+  Enabled: false
+
+AllCops:
+  Exclude:
+    - Gemfile
+    - config/application.rb
+    - config/environments/*
+    - config/puma.rb
+    - bin/*
+    - tmp/*
+    - db/schema.rb
+    - db/migrate/*
+    - node_modules/*
