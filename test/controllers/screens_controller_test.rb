@@ -43,7 +43,7 @@ class ScreensControllerTest < ActionDispatch::IntegrationTest
       ZabbixService::Result.new('name200', true, false),
       ZabbixService::Result.new('name201', false, true)
     ]
-    params_host_ids_result = [%w{200 201}, true]
+    params_host_ids_result = [%w[200 201], true]
     mock_zabbix.expect :create_screens, result, params_host_ids_result
     ScreensController.stub_any_instance(:logged_in?, true) do
       ScreensController.stub_any_instance(:zabbix_from_cache, mock_zabbix) do

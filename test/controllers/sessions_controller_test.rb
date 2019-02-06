@@ -23,7 +23,8 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'create should set_session and redirect if valid?' do
-    class MockZabbixApiConnected < String # For pass many checks of value in Rails.cache.write()
+    # For pass many checks of value in Rails.cache.write()
+    class MockZabbixApiConnected < String
       def connected?
         true
       end

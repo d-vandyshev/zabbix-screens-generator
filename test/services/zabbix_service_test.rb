@@ -10,7 +10,7 @@ class ZabbixServiceTest < ActiveSupport::TestCase
 
     # Change GRAPH_NAME_SORT_ORDER for tests
     ZabbixService.send(:remove_const, 'GRAPH_NAME_SORT_ORDER')
-    ZabbixService.const_set('GRAPH_NAME_SORT_ORDER', %w{cpu memory timeout})
+    ZabbixService.const_set('GRAPH_NAME_SORT_ORDER', %w[cpu memory timeout])
   end
 
   test 'connect should return Zabbix object' do
@@ -18,7 +18,7 @@ class ZabbixServiceTest < ActiveSupport::TestCase
   end
 
   test 'connect should raise an exception if not connected' do
-    raises_exception = -> (arg) { raise Net::OpenTimeout }
+    raises_exception = -> { raise Net::OpenTimeout }
     ZabbixApi.stub(:connect, raises_exception) do
       assert_raises(Net::OpenTimeout) do
         ZabbixService.new(
@@ -42,7 +42,7 @@ class ZabbixServiceTest < ActiveSupport::TestCase
 
   test 'host_names_by_ids should return Hash' do
     zabbixapi_instance.stub(:query, hosts_query) do
-      assert_equal hosts_hash_expected, @zabbix.send('host_names_by_ids', %w{201 202})
+      assert_equal hosts_hash_expected, @zabbix.send('host_names_by_ids', %w[201 202])
     end
   end
 
@@ -63,7 +63,7 @@ class ZabbixServiceTest < ActiveSupport::TestCase
 
   test 'delete_screens should run delete_screen_query' do
     @zabbix.stub(:delete_screen_query, true) do
-      assert_equal %w{hostname1 hostname2}, @zabbix.send('delete_screens', %w{hostname1 hostname2})
+      assert_equal %w[hostname1 hostname2], @zabbix.send('delete_screens', %w[hostname1 hostname2])
     end
   end
 
@@ -78,21 +78,21 @@ class ZabbixServiceTest < ActiveSupport::TestCase
   end
 
   test 'create_screens should create them without replace' do
-    @zabbix.stub(:host_names_by_ids, hosts_hash_expected, %w{201 202}) do
+    @zabbix.stub(:host_names_by_ids, hosts_hash_expected, %w[201 202]) do
       @zabbix.stub(:sorted_graphs_by_host, sorted_graphs) do
-        @zabbix.stub(:screen_create_query, true, 'TestHost-1', Array.new) do
-          assert_equal create_screens_expected_result, @zabbix.create_screens(%w{201 202}, false)
+        @zabbix.stub(:screen_create_query, true, 'TestHost-1', []) do
+          assert_equal create_screens_expected_result, @zabbix.create_screens(%w[201 202], false)
         end
       end
     end
   end
 
   test 'create_screens should create them with replace' do
-    @zabbix.stub(:host_names_by_ids, hosts_hash_expected, %w{201 202}) do
+    @zabbix.stub(:host_names_by_ids, hosts_hash_expected, %w[201 202]) do
       @zabbix.stub(:delete_screens, true) do
         @zabbix.stub(:sorted_graphs_by_host, sorted_graphs) do
-          @zabbix.stub(:screen_create_query, true, 'TestHost-1', Array.new) do
-            assert_equal create_screens_expected_result, @zabbix.create_screens(%w{201 202}, true)
+          @zabbix.stub(:screen_create_query, true, 'TestHost-1', []) do
+            assert_equal create_screens_expected_result, @zabbix.create_screens(%w[201 202], true)
           end
         end
       end
@@ -121,7 +121,7 @@ class ZabbixServiceTest < ActiveSupport::TestCase
   end
 
   def hostgroups_sorted_array
-    [%w{abc 20}, %w{xyz 10}]
+    [%w[abc 20], %w[xyz 10]]
   end
 
   def hosts_hash_expected
@@ -129,29 +129,30 @@ class ZabbixServiceTest < ActiveSupport::TestCase
   end
 
   def hosts_query
-    [{ 'hostid' => '201', 'proxy_hostid' => '0', 'host' => 'TestHost-1', 'status' => '0', 'disable_until' => '0', 'error' => '',
-       'available' => '0', 'errors_from' => '0', 'lastaccess' => '0', 'ipmi_authtype' => '-1', 'ipmi_privilege' => '2',
-       'ipmi_username' => '', 'ipmi_password' => '', 'ipmi_disable_until' => '0', 'ipmi_available' => '0',
-       'snmp_disable_until' => '1528953911', 'snmp_available' => '2', 'maintenanceid' => '0',
-       'maintenance_status' => '0', 'maintenance_type' => '0', 'maintenance_from' => '0', 'ipmi_errors_from' => '0',
-       'snmp_errors_from' => '1517569374', 'ipmi_error' => '',
-       'snmp_error' => 'Timeout while connecting to \'10.10.10.2:161\'.', 'jmx_disable_until' => '0',
-       'jmx_available' => '0', 'jmx_errors_from' => '0', 'jmx_error' => '', 'name' => 'TestHost-1', 'flags' => '0',
-       'templateid' => '0', 'description' => '', 'tls_connect' => '1', 'tls_accept' => '1', 'tls_issuer' => '',
-       'tls_subject' => '', 'tls_psk_identity' => '', 'tls_psk' => '', 'interfaces' => [
-        { 'interfaceid' => '200200000001214', 'hostid' => '201', 'main' => '1', 'type' => '2', 'useip' => '1',
-          'ip' => '10.10.10.2', 'dns' => '', 'port' => '161', 'bulk' => '1' }] },
-     { 'hostid' => '202', 'proxy_hostid' => '0', 'host' => 'TestHost-2', 'status' => '0', 'disable_until' => '0',
-       'error' => '', 'available' => '0', 'errors_from' => '0', 'lastaccess' => '0', 'ipmi_authtype' => '-1',
-       'ipmi_privilege' => '2', 'ipmi_username' => '', 'ipmi_password' => '', 'ipmi_disable_until' => '0',
-       'ipmi_available' => '0', 'snmp_disable_until' => '0', 'snmp_available' => '1', 'maintenanceid' => '0',
-       'maintenance_status' => '0', 'maintenance_type' => '0', 'maintenance_from' => '0', 'ipmi_errors_from' => '0',
-       'snmp_errors_from' => '0', 'ipmi_error' => '', 'snmp_error' => '', 'jmx_disable_until' => '0',
-       'jmx_available' => '0', 'jmx_errors_from' => '0', 'jmx_error' => '', 'name' => 'TestHost-2', 'flags' => '0',
-       'templateid' => '0', 'description' => '', 'tls_connect' => '1', 'tls_accept' => '1', 'tls_issuer' => '',
-       'tls_subject' => '', 'tls_psk_identity' => '', 'tls_psk' => '', 'interfaces' => [
-       { 'interfaceid' => '200200000001217', 'hostid' => '202', 'main' => '1', 'type' => '2', 'useip' => '1',
-         'ip' => '10.10.10.3', 'dns' => '', 'port' => '161', 'bulk' => '1' }] }
+    [
+      { 'hostid' => '201', 'proxy_hostid' => '0', 'host' => 'TestHost-1', 'status' => '0', 'disable_until' => '0',
+        'error' => '', 'available' => '0', 'errors_from' => '0', 'lastaccess' => '0', 'ipmi_authtype' => '-1',
+        'ipmi_privilege' => '2', 'ipmi_username' => '', 'ipmi_password' => '', 'ipmi_disable_until' => '0',
+        'ipmi_available' => '0', 'snmp_disable_until' => '1528953911', 'snmp_available' => '2', 'maintenanceid' => '0',
+        'maintenance_status' => '0', 'maintenance_type' => '0', 'maintenance_from' => '0', 'ipmi_errors_from' => '0',
+        'snmp_errors_from' => '1517569374', 'ipmi_error' => '',
+        'snmp_error' => 'Timeout while connecting to \'10.10.10.2:161\'.', 'jmx_disable_until' => '0',
+        'jmx_available' => '0', 'jmx_errors_from' => '0', 'jmx_error' => '', 'name' => 'TestHost-1', 'flags' => '0',
+        'templateid' => '0', 'description' => '', 'tls_connect' => '1', 'tls_accept' => '1', 'tls_issuer' => '',
+        'tls_subject' => '', 'tls_psk_identity' => '', 'tls_psk' => '',
+        'interfaces' => [{ 'interfaceid' => '200200000001214', 'hostid' => '201', 'main' => '1', 'type' => '2',
+                           'useip' => '1', 'ip' => '10.10.10.2', 'dns' => '', 'port' => '161', 'bulk' => '1' }] },
+      { 'hostid' => '202', 'proxy_hostid' => '0', 'host' => 'TestHost-2', 'status' => '0', 'disable_until' => '0',
+        'error' => '', 'available' => '0', 'errors_from' => '0', 'lastaccess' => '0', 'ipmi_authtype' => '-1',
+        'ipmi_privilege' => '2', 'ipmi_username' => '', 'ipmi_password' => '', 'ipmi_disable_until' => '0',
+        'ipmi_available' => '0', 'snmp_disable_until' => '0', 'snmp_available' => '1', 'maintenanceid' => '0',
+        'maintenance_status' => '0', 'maintenance_type' => '0', 'maintenance_from' => '0', 'ipmi_errors_from' => '0',
+        'snmp_errors_from' => '0', 'ipmi_error' => '', 'snmp_error' => '', 'jmx_disable_until' => '0',
+        'jmx_available' => '0', 'jmx_errors_from' => '0', 'jmx_error' => '', 'name' => 'TestHost-2', 'flags' => '0',
+        'templateid' => '0', 'description' => '', 'tls_connect' => '1', 'tls_accept' => '1', 'tls_issuer' => '',
+        'tls_subject' => '', 'tls_psk_identity' => '', 'tls_psk' => '',
+        'interfaces' => [{ 'interfaceid' => '200200000001217', 'hostid' => '202', 'main' => '1', 'type' => '2',
+                           'useip' => '1', 'ip' => '10.10.10.3', 'dns' => '', 'port' => '161', 'bulk' => '1' }] }
     ]
   end
 
@@ -173,12 +174,14 @@ class ZabbixServiceTest < ActiveSupport::TestCase
         'flags' => '0' },
       { 'graphid' => '303', 'name' => 'Timeout', 'width' => '900', 'height' => '200', 'yaxismin' => '0.0000',
         'yaxismax' => '100.0000', 'templateid' => '2002', 'show_work_period' => '1', 'show_triggers' => '1',
-        'graphtype' => '0', 'show_legend' => '1', 'show_3d' => '0', 'percent_left' => '0.0000', 'percent_right' => '0.0000',
-        'ymin_type' => '0', 'ymax_type' => '0', 'ymin_itemid' => '0', 'ymax_itemid' => '0', 'flags' => '0' },
+        'graphtype' => '0', 'show_legend' => '1', 'show_3d' => '0', 'percent_left' => '0.0000',
+        'percent_right' => '0.0000', 'ymin_type' => '0', 'ymax_type' => '0', 'ymin_itemid' => '0', 'ymax_itemid' => '0',
+        'flags' => '0' },
       { 'graphid' => '301', 'name' => 'CPU', 'width' => '900', 'height' => '200', 'yaxismin' => '0.0000',
         'yaxismax' => '100.0000', 'templateid' => '2003', 'show_work_period' => '1', 'show_triggers' => '1',
-        'graphtype' => '0', 'show_legend' => '1', 'show_3d' => '0', 'percent_left' => '0.0000', 'percent_right' => '0.0000',
-        'ymin_type' => '0', 'ymax_type' => '0', 'ymin_itemid' => '0', 'ymax_itemid' => '0', 'flags' => '0' }
+        'graphtype' => '0', 'show_legend' => '1', 'show_3d' => '0', 'percent_left' => '0.0000',
+        'percent_right' => '0.0000', 'ymin_type' => '0', 'ymax_type' => '0', 'ymin_itemid' => '0', 'ymax_itemid' => '0',
+        'flags' => '0' }
     ]
   end
 
