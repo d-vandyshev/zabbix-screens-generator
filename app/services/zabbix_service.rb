@@ -84,9 +84,9 @@ class ZabbixService
         screenitems: screen_items
       }
     )
-    return true
-  rescue
-    return false
+    true
+  rescue StandardError
+    false
   end
 
   attr_reader :server, :username, :password
