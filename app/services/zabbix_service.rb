@@ -37,24 +37,7 @@ class ZabbixService
 
     results = []
     host_ids.each do |host_id|
-      screen_items = []
-      x = y = 0
-      sorted_graphs_by_host(host_id).each do |graph|
-        screen_items << {
-          resourceid: graph['graphid'],
-          resourcetype: 0,
-          width: '700',
-          height: '100',
-          x: x,
-          y: y
-        }
-        if x.zero?
-          x = 1
-        elsif x == 1
-          y += 1
-          x = 0
-        end
-      end
+      screen_items = prepare_screen_items(host_id)
 
       # There is a Zabbix restriction of vsize. Value for field "vsize": must be between "1" and "100"
       excess_vsize = screen_items.size > 200
@@ -70,6 +53,28 @@ class ZabbixService
   end
 
   private
+
+  def prepare_screen_items(host_id)
+    screen_items = []
+    x = y = 0
+    sorted_graphs_by_host(host_id).each do |graph|
+      screen_items << {
+        resourceid: graph['graphid'],
+        resourcetype: 0,
+        width: '700',
+        height: '100',
+        x: x,
+        y: y
+      }
+      if x.zero?
+        x = 1
+      elsif x == 1
+        y += 1
+        x = 0
+      end
+    end
+    screen_items
+  end
 
   def screen_create_query(screen_name, screen_items)
     vsize = screen_items.count / 2
