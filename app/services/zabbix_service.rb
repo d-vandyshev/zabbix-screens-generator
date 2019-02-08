@@ -1,8 +1,7 @@
 class ZabbixService
-
   Host = Struct.new(:id, :name, :ip)
   Result = Struct.new(:hostname, :status, :excess_vsize?)
-  GRAPH_NAME_SORT_ORDER = %w[потери loss ответа timeout cpu memory uptime channel gigabit fast]
+  GRAPH_NAME_SORT_ORDER = %w[потери loss ответа timeout cpu memory uptime channel gigabit fast].freeze
 
   def initialize(credentials)
     @zabbix_instance = ZabbixApi.connect(
