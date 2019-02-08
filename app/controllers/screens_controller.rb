@@ -21,10 +21,10 @@ class ScreensController < ApplicationController
   private
 
   def require_login
-    unless logged_in?
-      flash[:danger] = I18n.t 'screens.must_be_logged_in'
-      redirect_to root_path
-    end
+    return if logged_in?
+
+    flash[:danger] = I18n.t 'screens.must_be_logged_in'
+    redirect_to root_path
   end
 
   def params_hostgroup_id
@@ -32,7 +32,7 @@ class ScreensController < ApplicationController
   end
 
   def params_host_ids
-    ids = params[:host_ids].select {|id| id !~ /\D/} # check for only digits in string
+    ids = params[:host_ids].select { |id| /\d/.match(id.to_s) } # check for only digits in string
     with_replace = params[:with_replace] ? true : false
     [ids, with_replace]
   end
