@@ -12,19 +12,13 @@ class SessionsController < ApplicationController
       return
     end
 
-    begin
-      zabbix = ZabbixService.new(@credentials)
-    rescue => e
-      flash.now[:danger] = if e.message.include?('Login name or password is incorrect')
-                             I18n.t 'login.flash_invalid_login'
-                           else
-                             "Error! #{e.class}: #{e.message}"
-                           end
-      render 'new' and return
+    zabbix = connect_to_zabbix
+    if zabbix.nil?
+      render 'new'
+      return
     end
 
-    username = params_zabbix_creds.fetch(:username)
-    set_session(username, zabbix)
+    set_session(params_zabbix_creds.fetch(:username), zabbix)
     redirect_to screens_new_path
   end
 
@@ -38,5 +32,16 @@ class SessionsController < ApplicationController
 
   def params_zabbix_creds
     params.require(:credentials).permit(:server, :username, :password)
+  end
+
+  def connect_to_zabbix
+    ZabbixService.new(@credentials)
+  rescue StandardError => e
+    flash.now[:danger] = if e.message.include?('Login name or password is incorrect')
+                           I18n.t 'login.flash_invalid_login'
+                         else
+                           "Error! #{e.class}: #{e.message}"
+                         end
+    nil
   end
 end
