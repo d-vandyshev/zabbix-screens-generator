@@ -16,6 +16,9 @@ Metrics/MethodLength:
 Style/Documentation:
   Enabled: false
 
+Style/ClassAndModuleChildren:
+  EnforcedStyle: compact
+
 AllCops:
   Exclude:
     - Gemfile
@@ -27,3 +30,6 @@ AllCops:
     - db/schema.rb
     - db/migrate/*
     - node_modules/*
+    - test/test_helper.rb
+    - app/channels/application_cable/*
+    - config/initializers/content_security_policy.rb
