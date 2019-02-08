@@ -1,15 +1,15 @@
 class SessionsController < ApplicationController
   def new
-    if logged_in?
-      redirect_to screens_new_path
-    end
+    redirect_to(screens_new_path) if logged_in?
+
     @credentials = Credentials.new
   end
 
   def create
     @credentials = Credentials.new(params_zabbix_creds)
-    unless @credentials.valid?
-      render 'new' and return
+    if @credentials.invalid?
+      render 'new'
+      return
     end
 
     begin
