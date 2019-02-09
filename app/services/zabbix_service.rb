@@ -4,21 +4,16 @@ class ZabbixService
   GRAPH_NAME_SORT_ORDER = %w[потери loss ответа timeout cpu memory uptime channel gigabit fast].freeze
 
   def initialize(credentials)
-    @zabbix_instance = ZabbixApi.connect(
-      url: "http://#{credentials.server}/api_jsonrpc.php",
-      user: credentials.username,
-      password: credentials.password,
-      timeout: 5
-    )
+    @zabbix = ZabbixConnection.new(credentials)
   end
 
   def hostgroups
-    @hostgroups = hostgroups_all_query.sort.to_a
+    @hostgroups = @zabbix.hostgroups_all_query.sort.to_a
   end
 
   def hosts_by_hostgroup(id)
     hosts = []
-    hosts_by_hostgroup_query(id).each do |host|
+    @zabbix.hosts_by_hostgroup_query(id).each do |host|
       ip = nil
       host['interfaces'].each do |inet|
         if inet['main'] == '1'
@@ -45,7 +40,7 @@ class ZabbixService
 
       results << Result.new(
         host_names[host_id],
-        screen_create_query(host_names[host_id], screen_items),
+        @zabbix.screen_create_query(host_names[host_id], screen_items),
         excess_vsize
       )
     end
@@ -76,46 +71,23 @@ class ZabbixService
     screen_items
   end
 
-  def screen_create_query(screen_name, screen_items)
-    vsize = screen_items.count / 2
-    vsize += 1 if screen_items.count.odd?
-
-    @zabbix_instance.query(
-      method: 'screen.create',
-      params: {
-        name: screen_name,
-        hsize: 2,
-        vsize: vsize,
-        screenitems: screen_items
-      }
-    )
-    true
-  rescue StandardError
-    false
-  end
-
   attr_reader :server, :username, :password
 
   #  Delete screens with names == host names
   def delete_screens(host_names)
-    host_names.each { |name| delete_screen_query(name) }
-  end
-
-  def delete_screen_query(name)
-    screen_id = @zabbix_instance.screens.get_id(name: name)
-    @zabbix_instance.screens.delete(screen_id) unless screen_id.nil?
+    host_names.each { |name| @zabbix.delete_screen_query(name) }
   end
 
   def host_names_by_ids(host_ids)
     host_names = {}
-    host_names_by_id_query(host_ids).each do |host|
+    @zabbix.host_names_by_id_query(host_ids).each do |host|
       host_names[host['hostid']] = host['host']
     end
     host_names
   end
 
   def sorted_graphs_by_host(id)
-    graphs = graphs_by_host_query(id).sort_by { |graph| graph['name'] }
+    graphs = @zabbix.graphs_by_host_query(id).sort_by { |graph| graph['name'] }
     sorted_graphs = []
     GRAPH_NAME_SORT_ORDER.each do |word|
       graphs.delete_if do |graph|
@@ -128,37 +100,5 @@ class ZabbixService
       end
     end
     sorted_graphs += graphs
-  end
-
-  def hostgroups_all_query
-    @zabbix_instance.hostgroups.all
-  end
-
-  def hosts_by_hostgroup_query(id)
-    @zabbix_instance.query(
-      method: 'host.get',
-      params: {
-        'selectInterfaces' => 'extend',
-        groupids: id
-      }
-    )
-  end
-
-  def host_names_by_id_query(host_ids)
-    @zabbix_instance.query(
-      method: 'host.get',
-      params: {
-        hostids: host_ids
-      }
-    )
-  end
-
-  def graphs_by_host_query(id)
-    @zabbix_instance.query(
-      method: 'graph.get',
-      params: {
-        hostids: id
-      }
-    )
   end
 end
