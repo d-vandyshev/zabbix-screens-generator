@@ -22,14 +22,15 @@ Style/ClassAndModuleChildren:
 AllCops:
   Exclude:
     - Gemfile
-    - config/application.rb
-    - config/environments/*
     - config/puma.rb
+    - config/environments/*
+    - config/application.rb
+    - config/initializers/content_security_policy.rb
     - bin/*
     - tmp/*
     - db/schema.rb
     - db/migrate/*
-    - node_modules/*
+    - node_modules/**/*
+    - vendor/**/*
     - test/test_helper.rb
     - app/channels/application_cable/*
-    - config/initializers/content_security_policy.rb
