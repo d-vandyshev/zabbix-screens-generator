@@ -13,6 +13,6 @@ module SessionsHelper
   end
 
   def logged_in?
-    !session[:uuid].nil? and !Rails.cache.read(session[:uuid]).nil?
+    !session[:uuid].nil? && !Rails.cache.read(session[:uuid]).nil?
   end
 end
