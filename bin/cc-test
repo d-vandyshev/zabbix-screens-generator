@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Need to set ENV CC_TEST_REPORTER_ID for Code Climate reporter
+cc-test-reporter before-build
+rails test
+cc-test-reporter after-build
