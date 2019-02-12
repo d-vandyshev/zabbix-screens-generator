@@ -37,21 +37,13 @@ export default class extends Controller {
 
     switchHighlightRow(checkbox) {
         let tr = checkbox.parentNode.parentNode
-        if (checkbox.checked) {
-            tr.classList.add("table-info")
-        } else {
-            tr.classList.remove("table-info")
-        }
+        checkbox.checked ? tr.classList.add("table-info") : tr.classList.remove("table-info")
     }
 
     underlineCheckboxLabel() {
         let rl = this.replace_labelTarget
         let rc = this.replace_checkboxTarget
-        if (rc.checked) {
-            rl.classList.add("underline")
-        } else {
-            rl.classList.remove("underline")
-        }
+        rc.checked ? rl.classList.add("underline") : rl.classList.remove("underline")
     }
 
     get checkall() {
