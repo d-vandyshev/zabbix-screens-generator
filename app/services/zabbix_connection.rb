@@ -22,7 +22,7 @@ class ZabbixConnection
     )
   end
 
-  def host_names_by_id_query(host_ids)
+  def hosts_by_id_query(host_ids)
     @zabbix_instance.query(
       method: 'host.get',
       params: {

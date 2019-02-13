@@ -80,7 +80,7 @@ class ZabbixService
 
   def host_names_by_ids(host_ids)
     host_names = {}
-    @zabbix.host_names_by_id_query(host_ids).each do |host|
+    @zabbix.hosts_by_id_query(host_ids).each do |host|
       host_names[host['hostid']] = host['host']
     end
     host_names
