@@ -1,6 +1,7 @@
 # Zabbix Screens Generator 
 
-![Test coverage](https://github.com/d-vandyshev/zabbix-screens-generator/raw/master/coverage/coverage.svg?sanitize=true)
+[![Maintainability](https://api.codeclimate.com/v1/badges/27d72e0b4bea1a8d8420/maintainability)](https://codeclimate.com/github/d-vandyshev/zabbix-screens-generator/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/27d72e0b4bea1a8d8420/test_coverage)](https://codeclimate.com/github/d-vandyshev/zabbix-screens-generator/test_coverage)
 
 Web application for creating screens per host with all its graphs
 
