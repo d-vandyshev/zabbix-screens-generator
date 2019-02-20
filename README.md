@@ -42,10 +42,7 @@ That runs a local webserver. On a local machine, paste the URL http://localhost:
     ```
     docker run -p3000:3000 dmitvan/zabbix-screens-generator
     ```
-2. Open URL in your favorite browser:
-    ```
-    http://localhost:3000
-    ```
+2. Open URL http://localhost:3000 in your favorite browser
 
 ## Usage
 
