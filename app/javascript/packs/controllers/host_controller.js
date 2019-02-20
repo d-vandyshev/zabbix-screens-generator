@@ -1,15 +1,19 @@
 import {Controller} from 'stimulus'
 
 export default class extends Controller {
-    static targets = ["hostgroup_id", "submit", "check", "checkall", "modal_no_hosts_selected",
-        "replace_label", "replace_checkbox"]
+    static targets = ["submit", "check", "checkall", "modal_no_hosts_selected",
+        "replace_label", "replace_checkbox", "hosts"]
 
-    changeHostgroup() {
-        this.submitTarget.click();
+    changeHostgroup(event) {
+        fetch(this.data.get("url") + "?hostgroup_id=" + event.target.value)
+            .then(response => response.text())
+            .then(html => {
+                this.hostsTarget.innerHTML = html
+            })
     }
 
     submitHosts(event) {
-        const isAllUnchecked = this.checkTargets.every(check => !check.checked)
+        const isAllUnchecked = this.checkTargets.every(check => !check.chercked)
         if (isAllUnchecked) {
             event.preventDefault()
             this.modal_no_hosts_selectedTarget.click();
@@ -48,9 +52,5 @@ export default class extends Controller {
 
     get checkall() {
         return this.checkallTarget.checked
-    }
-
-    get hostgroup_id() {
-        return this.hostgroup_idTarget.value
     }
 }

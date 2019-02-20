@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   post 'screens/new'
   post 'screens/create'
 
-  get 'hosts_in_hostgroup/:id', to: 'hosts_in_hostgroup_controller#show'
+  get 'hosts', to: 'hosts#index'
 
   # Errors
   match '/404', to: 'errors#not_found', via: :all
