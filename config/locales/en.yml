@@ -55,7 +55,7 @@ en:
     host_check: "Select all"
     submit_hosts: "Create Screens"
     select_hostgroup: "Please select host group"
-    no_hosts_in_group: "Sorry, but there is no hosts in this hostgroup"
+    no_hosts_in_group: "Sorry, but there are no hosts in this hostgroup"
     need_select_hosts: "Need to select hosts for generate screens"
     replace_screen_if_exist: "Replace screens if exist"
   screens:
