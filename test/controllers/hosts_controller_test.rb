@@ -5,5 +5,4 @@ class HostsInHostgroupControllerTest < ActionDispatch::IntegrationTest
     get hosts_in_hostgroup_show_url
     assert_response :success
   end
-
 end
