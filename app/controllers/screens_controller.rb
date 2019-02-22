@@ -13,10 +13,6 @@ class ScreensController < ApplicationController
 
   private
 
-  def params_hostgroup_id
-    params.require(:hostgroup).permit(:id).fetch('id')
-  end
-
   def params_host_ids
     ids = params[:host_ids].select { |id| /\d/.match(id.to_s) } # check for only digits in string
     with_replace = params[:with_replace] ? true : false
