@@ -9,7 +9,6 @@ Rails.application.routes.draw do
 
   # Screens
   get 'screens/new'
-  post 'screens/new'
   post 'screens/create'
 
   get 'hosts', to: 'hosts#index'
