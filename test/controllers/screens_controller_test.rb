@@ -9,7 +9,7 @@ class ScreensControllerTest < ActionDispatch::IntegrationTest
     assert_not flash[:danger].nil?
   end
 
-  test 'get new should set hostgroups and hostgroup_is_selected' do
+  test 'get new should set hostgroups' do
     mock_zabbix = Minitest::Mock.new
     mock_zabbix.expect :hostgroups, []
     ScreensController.stub_any_instance(:logged_in?, true) do
@@ -18,23 +18,7 @@ class ScreensControllerTest < ActionDispatch::IntegrationTest
       end
     end
     assert_mock mock_zabbix
-    assert_equal false, @controller.instance_variable_get(:@hostgroup_is_selected)
     assert_response :success
-  end
-
-  test 'post new should get hosts and show them' do
-    mock_zabbix = Minitest::Mock.new
-    mock_zabbix.expect :hostgroups, []
-    mock_zabbix.expect :hosts_by_hostgroup, [], [String]
-    ScreensController.stub_any_instance(:logged_in?, true) do
-      ScreensController.stub_any_instance(:zabbix_from_cache, mock_zabbix) do
-        post screens_new_url, params: { hostgroup: { id: 10 } }
-      end
-    end
-    assert_equal true, @controller.instance_variable_get(:@hostgroup_is_selected)
-    assert_equal [], @controller.instance_variable_get(:@hosts)
-    assert_equal false, @controller.instance_variable_get(:@hostgroup_with_hosts)
-    assert_equal '10', @controller.instance_variable_get(:@hostgroup_id)
   end
 
   test 'create should call zabbix create' do
