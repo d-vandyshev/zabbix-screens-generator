@@ -46,12 +46,12 @@ GEM
       public_suffix (>= 2.0.2, < 4.0)
     arel (9.0.0)
     ast (2.4.0)
-    autoprefixer-rails (9.4.4)
+    autoprefixer-rails (9.4.8)
       execjs
     bindex (0.5.0)
     bootsnap (1.3.2)
       msgpack (~> 1.0)
-    bootstrap (4.2.1)
+    bootstrap (4.3.1)
       autoprefixer-rails (>= 9.1.0)
       popper_js (>= 1.14.3, < 2)
       sassc-rails (>= 2.0.0)
@@ -196,7 +196,6 @@ GEM
       docile (~> 1.1)
       json (>= 1.8, < 3)
       simplecov-html (~> 0.10.0)
-    simplecov-formatter-badge (0.1.0)
     simplecov-html (0.10.2)
     spring (2.0.2)
       activesupport (>= 4.2)
@@ -250,30 +249,29 @@ PLATFORMS
   x64-mingw32
 
 DEPENDENCIES
-  bootsnap (= 1.3.2)
-  bootstrap (= 4.2.1)
-  byebug (= 10.0.2)
-  capybara (= 3.12.0)
-  coffee-rails (= 4.2.2)
-  evil_icons (= 1.10.1)
-  jbuilder (= 2.8.0)
-  listen (>= 3.0.5, < 3.2)
-  minitest-stub_any_instance (= 1.0.2)
-  puma (= 3.12.0)
-  rails (= 5.2.2)
+  bootsnap
+  bootstrap
+  byebug
+  capybara
+  coffee-rails
+  evil_icons
+  jbuilder
+  listen
+  minitest-stub_any_instance
+  puma
+  rails
   rubocop
-  sassc-rails (= 2.1.0)
-  selenium-webdriver (= 3.141.0)
-  simplecov (= 0.16.1)
-  simplecov-formatter-badge (= 0.1.0)
+  sassc-rails
+  selenium-webdriver
+  simplecov
   spring
-  spring-watcher-listen (~> 2.0.0)
-  turbolinks (= 5.2.0)
-  tzinfo-data (= 1.2018.9)
-  uglifier (= 4.1.20)
-  web-console (>= 3.3.0)
-  webpacker (= 3.5.5)
-  zabbixapi (= 4.1.0)
+  spring-watcher-listen
+  turbolinks
+  tzinfo-data
+  uglifier
+  web-console
+  webpacker
+  zabbixapi
 
 RUBY VERSION
    ruby 2.5.3p105
