@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="<%= @selected_locale %>">
 <head>
-  <title>ZabbixScreensGenerato1r</title>
+  <title>ZabbixScreensGenerator</title>
   <meta name="Description" content="ZabbixScreensGenerator - Web application for creating screens per host with all its graphs">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="theme-color" content="#DC1FB9">
@@ -14,9 +14,9 @@
 </head>
 
 <body>
-<header class="bg-dark navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar">
-  <h1><%= link_to t('app_name'), root_path, class: 'bg-dark logo-hover' %></h1>
-  <div class="justify-content-end ml-auto" data-controller="locale">
+<header class="navbar navbar-expand navbar-dark bg-dark d-flex bd-highlight">
+  <h1 class="p-2 flex-grow-1 bd-highlight"><%= link_to t('app_name'), root_path, class: 'bg-dark logo-hover' %></h1>
+  <div class="p-2 bd-highlight" data-controller="locale">
     <%= form_for(:locale, url: '/change_locale') do |f| %>
       <%= f.select(:locale, options_for_select(@available_locales, selected: @selected_locale, disabled: 0), {},
                    {
@@ -30,15 +30,15 @@
     <% end %>
   </div>
   <% if logged_in? %>
-    <div class="ml-md-3">
-          <span class="d-inline-block align-middle">
-            <%= evil_icon 'ei-user', size: :m %>
-          </span>
+    <div class="p-2 bd-highlight">
+      <span class="d-inline-block align-middle">
+        <%= evil_icon 'ei-user', size: :m %>
+      </span>
       <span class="align-middle">
-            <%= session[:username] %>
-          </span>
+        <%= session[:username] %>
+      </span>
     </div>
-    <%= link_to t('logout_button'), logout_path, method: :delete, class: 'btn btn-white btn-empty ml-md-3' %>
+    <%= link_to t('logout_button'), logout_path, method: :delete, class: 'btn btn-white btn-empty bd-highlight' %>
   <% end %>
 </header>
 <% flash.each do |message_type, message| %>

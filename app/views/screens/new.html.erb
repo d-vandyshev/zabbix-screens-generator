@@ -3,27 +3,35 @@
     <div class="row">
       <div class="col-12 col-md-8 col-lg-7 col-xl-7 text-left">
         <div class="row">
-          <h2 class="text-secondary"><%= t 'step2' %></h2>
+          <div class="col">
+            <h2 class="text-secondary"><%= t 'step2' %></h2>
+          </div>
         </div>
         <div class="row">
-          <h1><%= t 'generator.head' %></h1>
+          <div class="col">
+            <h1><%= t 'generator.head' %></h1>
+          </div>
         </div>
         <div class="row">
-          <%= form_for(:hostgroup, url: screens_new_path) do |f| %>
-            <%= f.select(:id, options_for_select(
-                @hostgroups.unshift([t('generator.select_hostgroup'), 0, hidden: '']),
-                selected: 0,
-                disabled: 0
-            ), {}, { :class => 'custom-select',
-                     'data-action' => 'host#changeHostgroup',
-                     'autocomplete' => 'off' } # To prevent Firefox remembers selected item after refresh
-                )
-            %>
-            <%= f.button :submit, class: 'invisible', 'data-target' => 'host.submit' %>
-          <% end %>
+          <div class="col">
+            <%= form_for(:hostgroup, url: screens_new_path) do |f| %>
+              <%= f.select(:id, options_for_select(
+                  @hostgroups.unshift([t('generator.select_hostgroup'), 0, hidden: '']),
+                  selected: 0,
+                  disabled: 0
+              ), {}, { :class => 'custom-select',
+                       'data-action' => 'host#changeHostgroup',
+                       'autocomplete' => 'off' } # To prevent Firefox remembers selected item after refresh
+                  )
+              %>
+              <%= f.button :submit, class: 'invisible', 'data-target' => 'host.submit' %>
+            <% end %>
+          </div>
         </div>
         <div class="row">
-          <div data-target="host.hosts"></div>
+          <div class="col">
+            <div data-target="host.hosts"></div>
+          </div>
         </div>
       </div>
     </div>

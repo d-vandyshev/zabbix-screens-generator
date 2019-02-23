@@ -16,6 +16,10 @@
 @import "screens";
 @import "froala_blocks";
 
+html, body {
+  height: 100%;
+}
+
 body {
   background: url(image-path('froala_bg1.svg')) no-repeat;
   background-size: cover;
@@ -35,43 +39,45 @@ a.bg-dark:hover {
 }
 
 /* showing popup background */
-a.popup:target { display: block; }
+a.popup:target {
+  display: block;
+}
 
 /* showing popup */
-a.popup:target + div.popup { display: block; }
+a.popup:target + div.popup {
+  display: block;
+}
 
 /* popup target anchor and background */
 a.popup {
   /* background is initially hidden */
-  display		: none;
-  position	: fixed;
-  top		: 0;
-  left		: 0;
-  z-index		: 3; /* anything, really, but bigger than other elements on the page */
-  width		: 100%;
-  height		: 100%;
-  background	: rgba(0, 0, 0, 0.4);
-  cursor		: default;
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 3; /* anything, really, but bigger than other elements on the page */
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  cursor: default;
 }
 
 /* popup window */
 div.popup {
   /* popup window is initially hidden */
-  display 	: none;
-  background	: white; /* choose your color; */
-  min-width		: 300px; /* width */
-  //height		: 480px; /* height */
-  position	: fixed;
-  top		: 50%;
-  left		: 50%;
-  margin-left	: -320px; /* = -width / 2 */
-  margin-top	: -240px; /* = -height / 2 */
-  z-index		: 4; /* z-index of popup backgroung + 1 */
-
-  -webkit-box-sizing : border-box;
-  -moz-box-sizing	: border-box;
-  -ms-box-sizing	: border-box;
-  box-sizing	: border-box;
+  display: none;
+  background: white; /* choose your color; */
+  min-width: 300px; /* width */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-left: -320px; /* = -width / 2 */
+  margin-top: -240px; /* = -height / 2 */
+  z-index: 4; /* z-index of popup backgroung + 1 */
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .field_with_errors {
@@ -82,4 +88,16 @@ div.popup {
 
 .underline {
   text-decoration: underline;
+}
+
+@include media-breakpoint-down(sm) {
+  .fdb-block h1, h1 {
+    font-size: 6vw;
+  }
+  .fdb-block h2, h2 {
+    font-size: 4vw;
+  }
+  .fdb-block {
+    padding: 4vw 0;
+  }
 }
