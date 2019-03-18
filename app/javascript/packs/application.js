@@ -3,6 +3,7 @@
 import { Application } from 'stimulus'
 import { definitionsFromContext } from 'stimulus/webpack-helpers'
 import Turbolinks from "turbolinks";
+import 'bootstrap/dist/js/bootstrap';
 // import Rails from "rails-ujs";
 
 const application = Application.start()

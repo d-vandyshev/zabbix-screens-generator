@@ -1,7 +1,7 @@
 import {Controller} from 'stimulus'
 
 export default class extends Controller {
-    static targets = ["submit", "check", "checkall", "modal_no_hosts_selected",
+    static targets = ["submit", "check", "checkall",
         "replace_label", "replace_checkbox", "hosts"]
 
     changeHostgroup(event) {
@@ -16,7 +16,7 @@ export default class extends Controller {
         const isAllUnchecked = this.checkTargets.every(check => !check.chercked)
         if (isAllUnchecked) {
             event.preventDefault()
-            this.modal_no_hosts_selectedTarget.click();
+            $('#modal_no_hosts_selected').modal()
         }
     }
 
