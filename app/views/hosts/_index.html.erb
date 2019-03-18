@@ -14,21 +14,27 @@
       <%= t 'generator.replace_screen_if_exist' %>
     </label>
   </div>
-  <a class="d-none" href="#my_popup" data-turbolinks="false" data-target="host.modal_no_hosts_selected">
-    Open popup
-  </a>
-  <a id="my_popup" class="popup" href="#" data-turbolinks="false"></a>
-  <div class="popup card">
-    <h2 class="card-header">
-      <%= t 'warning' %>
-    </h2>
-    <div class="card-body text-center">
-      <p class="card-title"><%= t 'generator.need_select_hosts' %></p>
-      <div class="text-right">
-        <a class="btn btn-secondary" href="#" data-turbolinks="false"><%= I18n.t('ok') %></a>
+
+  <!-- Modal -->
+  <div class="modal fade" id="modal_no_hosts_selected" tabindex="-1" role="dialog" aria-labelledby="modal_no_hosts_selectedLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header alert-warning">
+          <h3 class="modal-title" id="modal_no_hosts_selectedLabel"><%= t 'warning' %></h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body alert-warning">
+          <%= t 'generator.need_select_hosts' %>
+        </div>
+        <div class="modal-footer alert-warning">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"><%= I18n.t('ok') %></button>
+        </div>
       </div>
     </div>
   </div>
+
   <table class="table table-bordered table-hover mt-3 hosts-table">
     <thead>
     <tr>
