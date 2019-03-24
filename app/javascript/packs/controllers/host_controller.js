@@ -5,6 +5,11 @@ export default class extends Controller {
         "replace_label", "replace_checkbox", "hosts"]
 
     changeHostgroup(event) {
+        this.hostsTarget.innerHTML = "<div class=\"text-center\">\n" +
+            "  <div class=\"spinner-border\" role=\"status\">\n" +
+            "    <span class=\"sr-only\">Loading...</span>\n" +
+            "  </div>\n" +
+            "</div>"
         fetch(this.data.get("url") + "?hostgroup_id=" + event.target.value)
             .then(response => response.text())
             .then(html => {
