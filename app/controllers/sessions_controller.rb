@@ -8,13 +8,13 @@ class SessionsController < ApplicationController
   def create
     @credentials = Credentials.new(params_zabbix_creds)
     if @credentials.invalid?
-      render 'new'
+      redirect_to root_path
       return
     end
 
     zabbix = connect_to_zabbix
     if zabbix.nil?
-      render 'new'
+      redirect_to root_path
       return
     end
 
@@ -37,7 +37,7 @@ class SessionsController < ApplicationController
   def connect_to_zabbix
     ZabbixService.new(@credentials)
   rescue StandardError => e
-    flash.now[:danger] = if e.message.include?('Login name or password is incorrect')
+    flash[:danger] = if e.message.include?('Login name or password is incorrect')
                            I18n.t 'login.flash_invalid_login'
                          else
                            "Error! #{e.class}: #{e.message}"
