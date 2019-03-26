@@ -17,7 +17,7 @@
 <header class="navbar navbar-expand navbar-dark bg-dark d-flex bd-highlight">
   <h1 class="p-2 flex-grow-1 bd-highlight"><%= link_to t('app_name'), root_path, class: 'bg-dark logo-hover' %></h1>
   <div class="p-2 bd-highlight" data-controller="locale">
-    <%= form_for(:locale, url: '/change_locale') do |f| %>
+    <%= form_for(:locale, url: '/change_locale', remote: true) do |f| %>
       <%= f.select(:locale, options_for_select(@available_locales, selected: @selected_locale, disabled: 0), {},
                    {
                        'data-action' => 'locale#changeLocale',
