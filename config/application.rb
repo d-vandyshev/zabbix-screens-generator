@@ -29,5 +29,8 @@ module ZabbixScreensGenerator
 
     config.cache_store = :memory_store
     config.exceptions_app = self.routes
+
+    # Custom configuration section
+    config.x.zabbix_service.order_graph_by_name_for_screen = %w[потери loss ответа timeout cpu memory uptime channel gigabit fast].freeze
   end
 end

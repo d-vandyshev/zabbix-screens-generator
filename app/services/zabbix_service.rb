@@ -1,7 +1,6 @@
 class ZabbixService
   Host = Struct.new(:id, :name, :ip)
   Result = Struct.new(:hostname, :status, :excess_vsize?)
-  GRAPH_NAME_SORT_ORDER = %w[потери loss ответа timeout cpu memory uptime channel gigabit fast].freeze
 
   def initialize(credentials)
     @zabbix = ZabbixConnection.new(credentials)
@@ -89,7 +88,7 @@ class ZabbixService
   def sorted_graphs_by_host(id)
     graphs = @zabbix.graphs_by_host_query(id).sort_by { |graph| graph['name'] }
     sorted_graphs = []
-    GRAPH_NAME_SORT_ORDER.each do |word|
+    order_words.each do |word|
       graphs.delete_if do |graph|
         if graph['name'].downcase.include? word
           sorted_graphs << graph
@@ -100,5 +99,13 @@ class ZabbixService
       end
     end
     sorted_graphs += graphs
+  end
+
+  def method_name(order_match)
+    order_match
+  end
+
+  def order_words
+    Rails.configuration.x.zabbix_service.order_graph_by_name_for_screen
   end
 end
