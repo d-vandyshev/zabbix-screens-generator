@@ -42,20 +42,20 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     assert_equal 'zabbixapi', Rails.cache.read(session[:uuid])
   end
 
-  test 'create should render new when unable to connect' do
+  test 'create should redirect with alert if unable to connect' do
     raises_exception = -> { raise Net::OpenTimeout }
     ZabbixApi.stub(:connect, raises_exception) do
       post '/', params: { credentials: { server: '192.168.1.2', username: 'username', password: 'password' } }
     end
     assert_not flash.empty?
-    assert_response :success
+    assert_response :redirect
   end
 
-  test 'create should render new if not valid?' do
+  test 'create should redirect with alert if not valid?' do
     SessionsController.stub_any_instance(:set_session, true) do
       post root_url, params: { credentials: { server: 's/erver', username: 'us?er&name', password: 'password' } }
     end
-    assert_response :success
+    assert_response :redirect
   end
 
   test 'destroy should destroy_session flash and redirect' do
