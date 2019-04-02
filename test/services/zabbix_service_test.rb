@@ -10,9 +10,8 @@ class ZabbixServiceTest < ActiveSupport::TestCase
       @zabbix_service = ZabbixService.new(credentials)
     end
 
-    # Change GRAPH_NAME_SORT_ORDER for tests
-    ZabbixService.send(:remove_const, 'GRAPH_NAME_SORT_ORDER')
-    ZabbixService.const_set('GRAPH_NAME_SORT_ORDER', %w[cpu memory timeout])
+    # Change order_graph_by_name_for_screen for tests
+    Rails.configuration.x.zabbix_service.order_graph_by_name_for_screen = %w[cpu memory timeout]
   end
 
   test 'hostgroups should convert and sort' do
