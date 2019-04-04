@@ -12,7 +12,7 @@ Web application for creating screens per host with all its graphs
      * [Manual from Github](#manual-from-github)
      * [Docker](#docker)
    * [Usage](#usage)
-   * [Technology stack](#technology-stack)
+   * [Application stack](#application-stack)
    * [Security](#security)
 
 ## Deployed on Heroku
@@ -55,11 +55,11 @@ That runs a local webserver. On a local machine, paste the URL http://localhost:
 1. Page with statuses
 ![Zabbix Screen Generator - Select Hosts page](https://github.com/d-vandyshev/zabbix-screens-generator/blob/master/screenshots/Screen4_Result.png?raw=true)
 
-## Technology stack
+## Application stack
 
-| Element        | Tool                  |
+| Function       | Component             |
 | -------------- | --------------------- |
-| Web framework  | _Ruby on Rails 5_ |
+| Web framework  | _Ruby on Rails 5_     |
 | Design         | _Froala blocks_       |
 | CSS framework  | _Bootstrap 4_         |
 | JS Framework   | _Stimulus_            |
