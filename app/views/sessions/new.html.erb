@@ -21,7 +21,7 @@
             <div class="col mt-4">
               <%= f.text_field :server, class: 'form-control', placeholder: I18n.t('login.placeholder.server'),
                                required: true, pattern: '[^()/><\]\[/\\\\,;|\*%$\s]+', maxlength: 32,
-                               title: I18n.t('login.pattern_title') %>
+                               title: I18n.t('login.pattern_title'), autofocus: true %>
             </div>
           </div>
           <div class="row">
