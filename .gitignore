@@ -16,6 +16,8 @@
 /tmp/*
 !/log/.keep
 !/tmp/.keep
+# Enable caching in development
+!/tmp/caching-dev.txt
 
 /node_modules
 /yarn-error.log
