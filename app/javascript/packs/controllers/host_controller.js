@@ -18,7 +18,7 @@ export default class extends Controller {
     }
 
     submitHosts(event) {
-        const isAllUnchecked = this.checkTargets.every(check => !check.chercked)
+        const isAllUnchecked = this.checkTargets.every(check => !check.checked)
         if (isAllUnchecked) {
             event.preventDefault()
             $('#modal_no_hosts_selected').modal()
