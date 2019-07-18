@@ -49,6 +49,7 @@ group :development, :test do
   gem 'minitest-stub_any_instance'
   gem 'simplecov', require: false
   gem 'rubocop', require: false
+  gem 'pry-rails'
 end
 
 group :development do
