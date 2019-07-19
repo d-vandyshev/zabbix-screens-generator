@@ -14,6 +14,7 @@ Web application for creating screens per host with all its graphs
    * [Usage](#usage)
    * [Application stack](#application-stack)
    * [Security](#security)
+   * [Development workflow](#development-workflow)
 
 ## Deployed on Heroku
 
@@ -70,3 +71,17 @@ That runs a local webserver. On a local machine, paste the URL http://localhost:
 
 * Place for Zabbix credentials (server, username, password): _not stored_
 * Place for Zabbix instance: _save in memory (Rails.cache) of the server for current session_
+
+## Development workflow
+
+1. Change the code
+2. Check the app in production environment
+```
+RAILS_ENV=production SECRET_KEY_BASE=$(rails secret) RAILS_SERVE_STATIC_FILES=yes RAILS_LOG_TO_STDOUT=yes rails server
+```
+3. Generate new assets
+```
+RAILS_ENV=production bundle exec rails assets:precompile
+```
+4. Remove old JS/CSS-files
+5. Commit & push new generated assets
