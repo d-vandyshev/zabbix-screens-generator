@@ -1,5 +1,5 @@
 #!/bin/sh
-
+set -e
 rm -f /app/tmp/pids/server.pid
 export SECRET_KEY_BASE=$(rails secret)
 export RAILS_ENV=production
