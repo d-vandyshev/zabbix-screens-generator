@@ -48,6 +48,8 @@ group :development, :test do
   gem 'selenium-webdriver'
   gem 'minitest-stub_any_instance'
   gem 'simplecov', require: false
+  # From git because current stable 0.2.4 don't work and we need fix in commit e51824d 
+  gem 'simplecov-small-badge', :require => false, git: 'https://github.com/MarcGrimme/simplecov-small-badge'
   gem 'rubocop', require: false
   gem 'pry-rails'
 end

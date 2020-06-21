@@ -32,6 +32,6 @@
 /public/packs/*.map
 /public/packs/controllers
 /coverage/*
-!/coverage/coverage.svg
+!/coverage/coverage_badge_total.svg
 yarn-debug.log*
 .yarn-integrity
