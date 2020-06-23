@@ -53,7 +53,7 @@ GEM
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
     arel (9.0.0)
-    ast (2.4.0)
+    ast (2.4.1)
     autoprefixer-rails (9.7.4)
       execjs
     bindex (0.8.1)
@@ -131,9 +131,9 @@ GEM
       mini_portile2 (~> 2.4.0)
     nokogiri (1.10.9-x64-mingw32)
       mini_portile2 (~> 2.4.0)
-    parallel (1.19.1)
-    parser (2.7.1.2)
-      ast (~> 2.4.0)
+    parallel (1.19.2)
+    parser (2.7.1.4)
+      ast (~> 2.4.1)
     popper_js (1.16.0)
     pry (0.12.2)
       coderay (~> 1.1.0)
@@ -181,13 +181,21 @@ GEM
     repo-small-badge (0.2.7)
       victor (~> 0.2.8)
     rexml (3.2.4)
-    rubocop (0.83.0)
+    rubocop (0.86.0)
       parallel (~> 1.10)
       parser (>= 2.7.0.1)
       rainbow (>= 2.2.2, < 4.0)
+      regexp_parser (>= 1.7)
       rexml
+      rubocop-ast (>= 0.0.3, < 1.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 2.0)
+    rubocop-ast (0.0.3)
+      parser (>= 2.7.0.1)
+    rubocop-rails (2.6.0)
+      activesupport (>= 4.2.0)
+      rack (>= 1.1)
+      rubocop (>= 0.82.0)
     ruby-progressbar (1.10.1)
     rubyzip (2.2.0)
     sassc (2.2.1)
@@ -273,6 +281,7 @@ DEPENDENCIES
   puma
   rails
   rubocop
+  rubocop-rails
   sassc-rails
   selenium-webdriver
   simplecov

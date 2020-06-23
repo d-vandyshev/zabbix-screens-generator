@@ -51,6 +51,7 @@ group :development, :test do
   # From git because current stable 0.2.4 don't work and we need fix in commit e51824d 
   gem 'simplecov-small-badge', :require => false, git: 'https://github.com/MarcGrimme/simplecov-small-badge'
   gem 'rubocop', require: false
+  gem 'rubocop-rails', require: false
   gem 'pry-rails'
 end
 

@@ -1,5 +1,5 @@
-Rails:
-  Enabled: true
+require:
+  - rubocop-rails
 
 Style/FrozenStringLiteralComment:
   Enabled: false
@@ -7,7 +7,7 @@ Style/FrozenStringLiteralComment:
 Metrics/AbcSize:
   Max: 16
 
-Metrics/LineLength:
+Layout/LineLength:
   Max: 120
 
 Metrics/MethodLength:
@@ -18,6 +18,48 @@ Style/Documentation:
 
 Style/ClassAndModuleChildren:
   EnforcedStyle: compact
+
+Layout/EmptyLinesAroundAttributeAccessor:
+   Enabled: true
+
+Layout/SpaceAroundMethodCallOperator:
+   Enabled: true
+
+Lint/DeprecatedOpenSSLConstant:
+   Enabled: true
+
+Lint/MixedRegexpCaptureTypes:
+   Enabled: true
+
+Lint/RaiseException:
+   Enabled: true
+
+Lint/StructNewOverride:
+   Enabled: true
+
+Style/ExponentialNotation:
+   Enabled: true
+
+Style/HashEachMethods:
+   Enabled: true
+
+Style/HashTransformKeys:
+   Enabled: true
+
+Style/HashTransformValues:
+   Enabled: true
+
+Style/RedundantFetchBlock:
+   Enabled: true
+
+Style/RedundantRegexpCharacterClass:
+   Enabled: true
+
+Style/RedundantRegexpEscape:
+   Enabled: true
+
+Style/SlicingWithRange:
+   Enabled: true
 
 AllCops:
   Exclude:
