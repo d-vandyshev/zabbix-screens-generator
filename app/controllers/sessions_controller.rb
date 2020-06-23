@@ -38,10 +38,10 @@ class SessionsController < ApplicationController
     ZabbixService.new(@credentials)
   rescue StandardError => e
     flash[:danger] = if e.message.include?('Login name or password is incorrect')
-                           I18n.t 'login.flash_invalid_login'
-                         else
-                           "Error! #{e.class}: #{e.message}"
-                         end
+                       I18n.t 'login.flash_invalid_login'
+                     else
+                       "Error! #{e.class}: #{e.message}"
+                     end
     nil
   end
 end

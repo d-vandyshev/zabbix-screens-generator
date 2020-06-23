@@ -11,10 +11,10 @@ class HostsControllerTest < ActionDispatch::IntegrationTest
 
   test 'get hosts should render empty when there are no hosts' do
     zabbix = Minitest::Mock.new
-    zabbix.expect(:hosts_by_hostgroup, [], ["20"])
+    zabbix.expect(:hosts_by_hostgroup, [], ['20'])
     HostsController.stub_any_instance(:logged_in?, true) do
       HostsController.stub_any_instance(:zabbix_from_cache, zabbix) do
-        get hosts_url, params: {hostgroup_id: 20}, xhr: true
+        get hosts_url, params: { hostgroup_id: 20 }, xhr: true
       end
     end
     zabbix.verify
@@ -25,10 +25,10 @@ class HostsControllerTest < ActionDispatch::IntegrationTest
 
   test 'get hosts should render index when hosts exists' do
     zabbix = Minitest::Mock.new
-    zabbix.expect(:hosts_by_hostgroup, hosts_processed, ["20"])
+    zabbix.expect(:hosts_by_hostgroup, hosts_processed, ['20'])
     HostsController.stub_any_instance(:logged_in?, true) do
       HostsController.stub_any_instance(:zabbix_from_cache, zabbix) do
-        get hosts_url, params: {hostgroup_id: 20}, xhr: true
+        get hosts_url, params: { hostgroup_id: 20 }, xhr: true
       end
     end
     zabbix.verify
